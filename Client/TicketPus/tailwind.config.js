@@ -5,7 +5,23 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    colors: {
+      'grissoft': '#2B2B2B',
+      'white': 'white'
+    },
+    fontFamily: {
+      'Lilita': 'Lilita'
+    },
+
+
+    extend: {
+      backgroundImage: {
+        'backgroundicons': "url('../src/assets/background.jpg')",
+      },
+
+
+    },
+
   },
   plugins: [],
 }
