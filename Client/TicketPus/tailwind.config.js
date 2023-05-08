@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 export default {
   content: [
     "./index.html",
@@ -10,7 +11,7 @@ export default {
       'white': 'white'
     },
     fontFamily: {
-      'Lilita': 'Lilita'
+      'lilita': "lilita"
     },
 
 
@@ -18,6 +19,9 @@ export default {
       backgroundImage: {
         'backgroundicons': "url('../src/assets/background.jpg')",
       },
+      maxWidth: {
+        '1/5': '20%',
+      }
 
 
     },
