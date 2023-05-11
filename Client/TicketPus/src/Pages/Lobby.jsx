@@ -1,15 +1,15 @@
 import React from "react";
 import Footer from "../Components/User/Footer/Footer";
 import Navbar from "../Components/User/Navbar/Navbar";
-import Card from "../Components/User/Card/Card";
+import CardContainer from "../Components/User/CardContainer/CardContainer";
 
 const Lobby = () => {
   return (
     <section className="bg-backgroundicons bg-repeat">
       <Navbar />
-      <div className="flex-grow h-screen">
-      <Card />
-      </div>
+      
+      <CardContainer />
+      
       <Footer />
     </section>
   );

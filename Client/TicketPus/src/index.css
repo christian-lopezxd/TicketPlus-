@@ -6,3 +6,8 @@
     font-family: "lilita";
     src: url("../public/fonts/LilitaOne-Regular.ttf");
 }
+
+@font-face {
+    font-family: "montserrat";
+    src: url("../public/fonts/Montserrat.ttf");
+}
