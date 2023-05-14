@@ -9,6 +9,7 @@ export default {
     colors: {
       'grissoft': '#2B2B2B',
       'white': 'white',
+      'softblack' : '#131313',
       'newpink' : '#FC5C65',
       'newblue' : '#4064E3',
       'darkblue' : '#19376D',
@@ -40,6 +41,9 @@ export default {
       maxWidth: {
         '1/5': '20%',
         '1/3': '25%',
+        '1/2' : '50%',
+        '4/5' : "80vh",
+
       }
 
 

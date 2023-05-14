@@ -1,16 +1,11 @@
-import { useState } from 'react'
-
-import './App.css'
-import Footer from './Components/User/Footer/Footer'
-import Lobby from './Pages/Lobby'
+import './App.css';
+import Login from './Pages/Login';
+import Lobby from './Pages/Lobby';
 
 function App() {
-  
 
-  return (
-    <>
-   <Lobby />
-    </>
+  return(
+    <Login />
   )
 }
 
