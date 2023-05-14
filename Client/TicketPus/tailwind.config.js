@@ -8,10 +8,28 @@ export default {
   theme: {
     colors: {
       'grissoft': '#2B2B2B',
-      'white': 'white'
+      'white': 'white',
+      'newpink' : '#FC5C65',
+      'newblue' : '#4064E3',
+      'darkblue' : '#19376D',
+      'darkwhite' : '#86868B',
     },
     fontFamily: {
-      'lilita': "lilita"
+      'lilita': "lilita",
+      'montserrat': "montserrat"
+    },
+    screens: {
+      '2xl': {'max': '1535px'},
+      // => @media (max-width: 1535px) { ... }
+
+      'xl': {'max': '1279px'},
+      // => @media (max-width: 1279px) { ... }
+
+      'sm': {'max': '1023px'},
+      // => @media (max-width: 767px) { ... }
+
+      'md': {'max': '639px'},
+      // => @media (max-width: 639px) { ... }
     },
 
 
@@ -21,6 +39,7 @@ export default {
       },
       maxWidth: {
         '1/5': '20%',
+        '1/3': '25%',
       }
 
 

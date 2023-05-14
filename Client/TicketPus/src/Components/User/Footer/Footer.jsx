@@ -12,7 +12,7 @@ const Footer = () => {
     <h1 className="font-lilita text-2xl">TicketPlus+</h1>
     <Anchors />
     </div>
-    <div className="flex items-center justify-between p-4">
+    <div className="flex items-center  sm:flex-col justify-between p-4">
       <h5 className="max-w-sm text-justify">
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem, molestiae assumenda minus praesentium laboriosam quis tenetur porro corrupti fuga, unde quo. Maiores iste obcaecati soluta quod rem sequi debitis expedita, est veniam at architecto nesciunt? Pariatur quos, quibusdam nesciunt, ducimus, repudiandae error sapiente at veniam hic odio eos laboriosam nemo?
       </h5>
