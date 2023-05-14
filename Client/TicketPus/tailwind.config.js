@@ -8,7 +8,11 @@ export default {
   theme: {
     colors: {
       'grissoft': '#2B2B2B',
-      'white': 'white'
+      'white': 'white',
+      'newpink' : '#FC5C65',
+      'newblue' : '#4064E3',
+      'darkblue' : '#19376D',
+      'darkwhite' : '#86868B',
     },
     fontFamily: {
       'lilita': "lilita",

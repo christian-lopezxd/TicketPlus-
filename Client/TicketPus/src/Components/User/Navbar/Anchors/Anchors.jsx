@@ -7,7 +7,7 @@ import { IoTicketOutline } from 'react-icons/io5';
 
 const Anchors = () => {
   return (
-    <div className="text-white flex gap-3 p-1 items-center">
+    <div className="text-white flex gap-3 p-1 sm:hidden items-center">
       <a className="flex items-center gap-1">
         <FiAlertCircle />
         About
