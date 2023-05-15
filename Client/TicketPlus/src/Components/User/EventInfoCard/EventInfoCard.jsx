@@ -9,17 +9,17 @@ import ButtonsDuo from "../ButtonsDuo/ButtonsDuo";
 
 const EventInfoCard = (props) => {
   return (
-    <div className=" flex flex-col w-3/4 h-1/2 bg-white m-auto text-justify p-5 font-montserrat font-medium">
-      <h1 className="font-bold">Description</h1>
+    <div className=" flex flex-col w-3/4 h-1/2 bg-white mx-auto my-10 text-justify p-5 font-montserrat font-medium rounded-xl">
+      <h1 className="font-bold text-2xl">Description</h1>
       <p className="w-4/5">{props.description}</p><br/>
-      <h1 className="font-bold"> Details</h1>
+      <h1 className="font-bold text-2xl"> Details</h1>
       <ul>
         <li><p className="flex items-center text-lg gap-1"><IoLocationOutline/>{props.Location}</p></li> 
         <li><p className="flex items-center text-lg gap-1"><IoCalendarClearOutline/>{props.Date}</p></li>
         <li><p className="flex items-center text-lg gap-1"><FiClock/>{props.Hour}</p></li>
         <li><p className="flex items-center text-lg gap-1"><IoTicketOutline/>{props.Category}</p></li>
       </ul><br/>
-    <h1 className="font-bold">Tiers</h1>
+    <h1 className="font-bold text-2xl">Tiers</h1>
     <ul>
         <li>General</li>
         <li>Premium</li>
