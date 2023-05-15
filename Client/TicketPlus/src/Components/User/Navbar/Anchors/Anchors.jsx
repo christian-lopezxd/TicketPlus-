@@ -3,28 +3,28 @@ import { FiUser } from 'react-icons/fi';
 import { FiCalendar } from 'react-icons/fi';
 import { FiAlertCircle } from 'react-icons/fi';
 import { IoTicketOutline } from 'react-icons/io5';
+import { NavLink } from "react-router-dom";
 
 
 const Anchors = () => {
   return (
     <div className="text-white flex gap-3 p-1 sm:hidden items-center">
-      <a className="flex items-center gap-1">
+    <NavLink to="/About"><a className="flex items-center gap-1">
         <FiAlertCircle />
         About
-      </a>
-      <a className="flex items-center gap-1">
-  
-        <FiCalendar />
+      </a> </NavLink>
+      <NavLink to="/"><a className="flex items-center gap-1">
+      <FiCalendar />
         Events
-      </a>
-      <a className="flex items-center gap-1">
+      </a></NavLink>
+      <NavLink to="/MyTickets"><a className="flex items-center gap-1">
          <IoTicketOutline />
          MyTickets
-      </a>
-      <a className="flex items-center gap-1">
+      </a></NavLink>
+      <NavLink to="/Profile"> <a className="flex items-center gap-1">
       <FiUser />
         Profile
-      </a>
+      </a></NavLink>
     </div>
   );
 };
