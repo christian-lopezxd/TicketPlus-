@@ -16,6 +16,7 @@ export default {
       'darkwhite' : '#86868B',
       'unsuccesful' : '#DD1717',
       'darkunsuccesful' : '#A70E0E',
+      'selector' : '#D9D9D9',
     },
     fontFamily: {
       'lilita': "lilita",
