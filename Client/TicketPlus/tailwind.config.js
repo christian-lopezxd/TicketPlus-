@@ -14,6 +14,8 @@ export default {
       'newblue' : '#4064E3',
       'darkblue' : '#19376D',
       'darkwhite' : '#86868B',
+      'unsuccesful' : '#DD1717',
+      'darkunsuccesful' : '#A70E0E',
     },
     fontFamily: {
       'lilita': "lilita",
@@ -43,6 +45,7 @@ export default {
         '1/3': '25%',
         '1/2' : '50%',
         '4/5' : "80vh",
+        '3/4' : '75%',
 
       }
 
