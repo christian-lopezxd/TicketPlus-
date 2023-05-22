@@ -16,6 +16,7 @@ export default {
       'darkwhite' : '#86868B',
       'unsuccesful' : '#DD1717',
       'darkunsuccesful' : '#A70E0E',
+      'selector' : '#D9D9D9',
     },
     fontFamily: {
       'lilita': "lilita",
@@ -46,6 +47,7 @@ export default {
         '1/2' : '50%',
         '4/5' : "80vh",
         '3/4' : '75%',
+        'e' : '10%'
 
       }
 
