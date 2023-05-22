@@ -12,7 +12,7 @@ const EventInfoCard = (props) => {
   return (
     <div className=" flex flex-col w-3/4 h-1/2 bg-white mx-auto my-10 text-justify p-5 font-montserrat font-medium rounded-xl">
       <h1 className="font-bold text-2xl">Description</h1>
-      <p className="w-1/2">{props.description}</p><br/>
+      <p className="w-full">{props.description}</p><br/>
       <h1 className="font-bold text-2xl"> Details</h1>
       <ul>
         <li><p className="flex items-center text-lg gap-1"><IoLocationOutline/>{props.Location}</p></li> 

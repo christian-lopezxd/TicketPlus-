@@ -19,14 +19,16 @@ const TicketSelector = () => {
 
   
 
-  
+  const suma = data.reduce((total, objeto) => total + objeto.precio, 0);
+
+
 
 
   
  
 
   return (
-    <div className="w-1/2 text-center bg-selector p-5  font-montserrat  text-2xl  flex flex-col gap-5">
+    <div className="w-1/2 xl:w-full text-center bg-selector p-5  font-montserrat  text-2xl  flex flex-col gap-5 rounded-lg">
       <div className="flex justify-between font-bold">
         <h1 className="pl-5"> Tier</h1>
         <h1> Amount</h1>
@@ -38,7 +40,7 @@ const TicketSelector = () => {
         {data.map((data, index) => (
           <li key={index}>
            <div className="flex justify-center ">
-        <div className="flex justify-start w-1/2 pl-5">
+        <div className="flex justify-start w-1/2 2xl:p-0 pl-5">
           <h1>{data.nombre}</h1>
         </div>
         <TicketSelectorController   />
@@ -51,6 +53,7 @@ const TicketSelector = () => {
           </li>
         ))}
       </ul>
+      <h1 className="text-right">Total: {suma} </h1>
     </div>
   );
 };

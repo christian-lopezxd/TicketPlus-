@@ -9,24 +9,16 @@ const  TicketSelectorController = () => {
           setQuantity((prevCount) => prevCount - 1);
         }
       };
-    
-      
-      
-
       const handleIncrement = () => {
         if (quantity < 10) {
           setQuantity((prevCount) => prevCount + 1);
         }
-      };
- 
-    
-      
-    
+      };   
       return(
         <div className="flex flex-row w-full justify-center">
             <button
           type="button"
-          className="bg-newblue w-1/10 px-4 text-white font-bold text-3xl"
+          className="bg-newblue w-1/10 px-4 text-white font-bold text-3xl rounded-l-lg hover:bg-darkblue"
           onClick={handleDecrement}
         >
           -
@@ -36,7 +28,7 @@ const  TicketSelectorController = () => {
         </div>
         <button
           type="button"
-          className="bg-newblue w-1/10 px-4 text-white font-bold text-3xl"
+          className="bg-newblue w-1/10 px-4 text-white font-bold text-3xl rounded-r-lg hover:bg-darkblue "
           onClick={handleIncrement}
         >
           +

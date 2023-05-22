@@ -8,7 +8,7 @@ import Title from "../../Components/User/Title/Title";
 
 const BuyTicket = () => {
   return (
-    <section className="bg-backgroundicons bg-repeat">
+    <section className="bg-backgroundicons bg-repeat ">
 
       <Navbar />
       <Banner/>
