@@ -9,6 +9,7 @@ export default {
     colors: {
       'grissoft': '#2B2B2B',
       'white': 'white',
+      'black': 'black',
       'softblack' : '#131313',
       'newpink' : '#FC5C65',
       'newblue' : '#4064E3',
@@ -32,7 +33,7 @@ export default {
       'sm': {'max': '1023px'},
       // => @media (max-width: 767px) { ... }
 
-      'md': {'max': '639px'},
+      'md': {'max': '900px'},
       // => @media (max-width: 639px) { ... }
     },
 
@@ -56,4 +57,10 @@ export default {
 
   },
   plugins: [],
+
+  variants: {
+    extend: {
+        display: ["group-hover"],
+    },
+},
 }
