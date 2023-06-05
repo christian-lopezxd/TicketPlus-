@@ -10,8 +10,8 @@ const MyTickets = () => {
         <section className="bg-backgroundicons bg-repeat ">
             <Navbar/>
             <Title title="My Tickets"/>
-           <div className="flex xl:flex-col  justify-between md:items-center min-h-[85vh] xl:justify-start">
-            <div className="w-[25vw] md:w-full flex justify-center md:p-2 sm:w-100 py-5 pl-2 h-fit md:static z-[1] sticky top-[75px]">
+           <div className="flex xl:flex-col  justify-between md:items-center min-h-[85vh] xl:justify-start pt-5">
+            <div className="w-[25vw] md:w-full flex justify-center md:p-2 sm:w-100 py-5 pl-2 h-fit xl:static z-[1] sticky top-[75px] ">
                <MyTicketSelector/>
 
             </div>

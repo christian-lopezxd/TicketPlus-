@@ -4,6 +4,9 @@ import { IoLocationOutline } from "react-icons/io5";
 import { IoCalendarClearOutline } from "react-icons/io5";
 import { IoTicketOutline } from "react-icons/io5";
 import { FiClock } from "react-icons/fi";
+import { BsQrCodeScan } from "react-icons/bs";
+import { FaShare } from "react-icons/fa";
+
 
 const Ticket = () => {
   return (
@@ -19,10 +22,10 @@ const Ticket = () => {
             <div className="w-full h-[20rem] xl:h-[20rem] sm:h-[20rem] bg-black sm:w-full md:h-[14rem] flex  rounded-2xl  opacity-50 flex-row pr-5 font-montserrat flex flex-row items-center justify-center gap-5 relative "></div>
             <div className=" flex flex-row items-center justify-center h-full w-full gap-2 absolute top-0">
               <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 z-10 ">
-                Generate QR code
+                <BsQrCodeScan/> Generate QR code
               </button>
               <button className="flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 opacity-100 ">
-                Transfer Ticket
+                <FaShare/> Transfer Ticket
               </button>
             </div>
           </div>
@@ -68,12 +71,12 @@ const Ticket = () => {
               </li>
             </ul>
             <br />
-            <div className="flex-row justify-center gap-5 hidden md:flex">
+            <div className="flex-row justify-center gap-5 hidden md:flex md:text-xs font-bold">
             <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 z-10 ">
-                Generate QR code
+            <BsQrCodeScan/> Generate QR code
               </button>
               <button className="flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 opacity-100 ">
-                Transfer Ticket
+              <FaShare/> Transfer Ticket
               </button>
             </div>
             
