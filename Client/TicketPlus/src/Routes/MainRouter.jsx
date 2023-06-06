@@ -8,7 +8,7 @@ import AnalystRouter from "./AnalystRouter";
 
 
 const MainRouter = () => {
-    const role ="Employee";
+    const role ="Admin";
     return(
         <BrowserRouter>
         {role === "User" && <UserRouter />}
