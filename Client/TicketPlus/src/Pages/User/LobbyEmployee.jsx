@@ -8,7 +8,7 @@ const Lobby = () => {
   return (
     <section className="bg-backgroundicons bg-repeat">
       <Navbar />
-      <Title title="Events" />
+      <Title title="Actual Events" />
       <CardContainer />
       <Footer />
     </section>
