@@ -18,7 +18,7 @@ CREATE TABLE users (
 
 -- ROLE
 CREATE TABLE public.roles (
-	id_role serial NOT NULL,
+	id_role uuid NOT NULL DEFAULT gen_random_uuid(),
 	rol varchar NOT NULL,
 	CONSTRAINT roles_pk_id PRIMARY KEY (id_role),
 	CONSTRAINT roles_un_role UNIQUE (rol)
@@ -26,7 +26,7 @@ CREATE TABLE public.roles (
 
 -- ACTION
 CREATE TABLE public.actions (
-	id_action serial4 NOT NULL,
+	id_action uuid NOT NULL DEFAULT gen_random_uuid(),
 	action_name varchar NOT NULL,
 	CONSTRAINT actions_pk_id PRIMARY KEY (id_action),
 	CONSTRAINT actions_un_action UNIQUE (action_name)
@@ -34,7 +34,7 @@ CREATE TABLE public.actions (
 
 -- PLACE
 CREATE TABLE public.places (
-	id_place serial NOT NULL,
+	id_place uuid NOT NULL DEFAULT gen_random_uuid(),
 	place varchar NOT NULL,
 	address_location varchar NOT NULL,
 	CONSTRAINT places_pk_id PRIMARY KEY (id_place)
@@ -42,7 +42,7 @@ CREATE TABLE public.places (
 
 -- EVENT_CATEGORY
 CREATE TABLE public.event_categories (
-	id_event_category serial NOT NULL,
+	id_event_category uuid NOT NULL DEFAULT gen_random_uuid(),
 	event_category varchar NOT NULL,
 	CONSTRAINT event_categories_pk_id PRIMARY KEY (id_event_category)
 );
@@ -64,8 +64,8 @@ CREATE TABLE public.sponsors (
 -- EVENT
 CREATE TABLE public.events (
 	id_event uuid NOT NULL DEFAULT gen_random_uuid(),
-	id_event_category serial NOT NULL,
-	id_place serial NOT NULL,
+	id_event_category uuid NOT NULL DEFAULT gen_random_uuid(),
+	id_place uuid NOT NULL DEFAULT gen_random_uuid(),
 	title varchar NOT NULL,
 	start_date timestamp NOT NULL,
 	end_date timestamp NOT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE public.events_sponsor (
 CREATE TABLE public.users_roles (
 	id_user_role uuid NOT NULL DEFAULT gen_random_uuid(),
 	id_user uuid NOT NULL,
-	id_role serial NOT NULL,
+	id_role uuid NOT NULL DEFAULT gen_random_uuid(),
 	CONSTRAINT users_roles_pk_id PRIMARY KEY (id_user_role),
 	CONSTRAINT users_roles_fk_user FOREIGN KEY (id_user) REFERENCES public.users(id_user) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT users_roles_fk_role FOREIGN KEY (id_role) REFERENCES public.roles(id_role) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -137,7 +137,7 @@ CREATE TABLE public.tickets (
 -- ORDER
 CREATE TABLE public.orders (
 	id_order uuid NULL DEFAULT gen_random_uuid(),
-	id_action serial NOT NULL,
+	id_action uuid NOT NULL DEFAULT gen_random_uuid(),
 	action_date timestamp NOT NULL,
 	CONSTRAINT orders_pk_id PRIMARY KEY (id_order),
 	CONSTRAINT orders_fk_action FOREIGN KEY (id_action) REFERENCES public.actions(id_action) ON DELETE RESTRICT ON UPDATE CASCADE
