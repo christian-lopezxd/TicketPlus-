@@ -27,16 +27,16 @@ CREATE TABLE public.roles (
 -- ACTION
 CREATE TABLE public.actions (
 	id_action serial4 NOT NULL,
-	"action" varchar NOT NULL,
+	action_name varchar NOT NULL,
 	CONSTRAINT actions_pk_id PRIMARY KEY (id_action),
-	CONSTRAINT actions_un_action UNIQUE (action)
+	CONSTRAINT actions_un_action UNIQUE (action_name)
 );
 
 -- PLACE
 CREATE TABLE public.places (
 	id_place serial NOT NULL,
 	place varchar NOT NULL,
-	address varchar NOT NULL,
+	address_location varchar NOT NULL,
 	CONSTRAINT places_pk_id PRIMARY KEY (id_place)
 );
 
