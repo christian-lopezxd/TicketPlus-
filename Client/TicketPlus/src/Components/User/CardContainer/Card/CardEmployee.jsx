@@ -17,7 +17,7 @@ const CardEmployee = () => {
             <p className="font-montserrat font-normal flex items-center text-lg gap-1"><FiClock/> 7:00PM - 10:00PM</p>
             <p className="font-montserrat font-normal flex items-center text-lg gap-1"><IoTicketOutline/> Concert</p>
             <div className="flex flex-col p-2 items-center ">
-            <button className="bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3">Check in</button>
+            <button className="bg-newblue hover:bg-darkblue rounded font-montserrat text-white font-normal py-1 px-3">Check in</button>
 
             </div>
             </div>
