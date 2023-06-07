@@ -11,8 +11,10 @@ const ValidateTicket = () => {
 
       <Navbar />
       <Title title= "Ticket Validator" />
+      <div className="min-h-85vh">
       <ValidatorTicket />
       <CountTicket />
+      </div>
       <Footer />
       
     </section>

@@ -3,7 +3,7 @@ import Card from "./Card/Card";
 
 const CardContainer =()=>{
     return (
-        <div className="flex flex-wrap gap-10 justify-center p-5">
+        <div className="flex flex-wrap gap-10 justify-center p-5 min-h-80vh">
             <Card />
             <Card />
             <Card />
