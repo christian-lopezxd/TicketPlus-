@@ -1,9 +1,9 @@
 import React from "react";
 import { Routes } from "react-router";
 import { Route } from "react-router";
-import LobbyEmployee from './../Pages/User/LobbyEmployee'
-import EventInfoPreValidate from "../Pages/User/EventInfoPreValidate";
-import ValidateTicket from "../Pages/User/ValidateTicket";
+import LobbyEmployee from './../Pages/Employee/LobbyEmployee'
+import EventInfoPreValidate from "../Pages/Employee/EventInfoPreValidate";
+import ValidateTicket from "../Pages/Employee/ValidateTicket";
 
 const EmployeeRouter = () => {
     return (

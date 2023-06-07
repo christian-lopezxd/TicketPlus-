@@ -1,21 +1,21 @@
 import React from "react";
-import NewEvent from "../../Components/User/NewEvent/NewEvent";
+import NewEventCard from "../../Components/Admin/NewEventCard/NewEventCard";
 import Footer from "../../Components/User/Footer/Footer";
 import Navbar from "../../Components/User/Navbar/Navbar";
 import Title from "../../Components/User/Title/Title";
 
 
-const EventInfoAdmin = () => {
+const NewEvent = () => {
   return (
     <section className="bg-backgroundicons bg-repeat">
 
       <Navbar />
       <Title title= "New Event" />
-      <NewEvent />
+      <NewEventCard />
       <Footer />
       
     </section>
   );
 };
 
-export default EventInfoAdmin;
+export default NewEvent;
