@@ -6,8 +6,8 @@ const Test = (props) => {
 
 
   return (
-    <div className='h-fit'>
-      <QrReader className='h-fit'
+    <div className=''>
+      <QrReader className=''
       
 
         onResult={(result, error) => {
