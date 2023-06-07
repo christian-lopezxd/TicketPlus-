@@ -17,24 +17,24 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "users_roles")
-public class Users_roles {
+@Table(name = "orders_ticket")
+public class OrdersTicket {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_user_role")
-	private UUID idUserRole;
+	@Column(name = "id_order_ticket")
+	private UUID idOrderTicket;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user", nullable = true)
-	private Users user;
+	@JoinColumn(name = "id_order", nullable = true)
+	private Orders order;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_role", nullable = true)
-	private Roles role;
+	@JoinColumn(name = "id_ticket", nullable = true)
+	private Tickets ticket;
 
-	public Users_roles(Users user, Roles role) {
+	public OrdersTicket(Orders order, Tickets ticket) {
 		super();
-		this.user = user;
-		this.role = role;
+		this.order = order;
+		this.ticket = ticket;
 	}
 }

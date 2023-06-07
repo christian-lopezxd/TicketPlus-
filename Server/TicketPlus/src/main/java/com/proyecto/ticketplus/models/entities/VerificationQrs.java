@@ -1,5 +1,6 @@
 package com.proyecto.ticketplus.models.entities;
 
+import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
@@ -17,24 +18,31 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "orders_ticket")
-public class Orders_ticket {
+@Table(name = "verification_qrs")
+public class VerificationQrs {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_order_ticket")
-	private UUID idOrderTicket;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_order", nullable = true)
-	private Orders order;
+	@Column(name = "id_verification_code")
+	private UUID idVerificationCode;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_ticket", nullable = true)
 	private Tickets ticket;
-
-	public Orders_ticket(Orders order, Tickets ticket) {
+	
+	@Column(name = "qr_code")
+	private String qrCode;
+	
+	@Column(name = "creation_date")
+	private Date creationDate;
+	
+	@Column(name = "expiration_date")
+	private Date expirationDate;
+	
+	public VerificationQrs(Tickets ticket, String qrCode, Date creationDate, Date expirationDate) {
 		super();
-		this.order = order;
 		this.ticket = ticket;
+		this.qrCode = qrCode;
+		this.creationDate = creationDate;
+		this.expirationDate = expirationDate;
 	}
 }

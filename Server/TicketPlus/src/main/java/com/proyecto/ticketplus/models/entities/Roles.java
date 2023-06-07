@@ -33,7 +33,7 @@ public class Roles {
 	
 	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Users_roles> userRoles;
+	private List<UsersRoles> userRoles;
 
 	public Roles(String role) {
 		super();

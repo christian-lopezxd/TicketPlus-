@@ -22,7 +22,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "event_categories")
 @ToString(exclude = {"events"})
-public class Event_categories {
+public class EventCategories {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_event_category")
@@ -35,7 +35,7 @@ public class Event_categories {
 	@JsonIgnore
 	private List<Events> events;
 
-	public Event_categories(String eventCategory) {
+	public EventCategories(String eventCategory) {
 		super();
 		this.eventCategory = eventCategory;
 	}

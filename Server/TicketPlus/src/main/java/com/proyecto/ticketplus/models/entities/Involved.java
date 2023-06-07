@@ -33,7 +33,7 @@ public class Involved {
 	
 	@OneToMany(mappedBy = "involved", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Events_involved> eventsInvolved;
+	private List<EventsInvolved> eventsInvolved;
 
 	public Involved(String involved) {
 		super();

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "transfer_qrs")
-public class Transfer_qrs {
+public class TransferQrs {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_transfer_code")
@@ -38,7 +38,7 @@ public class Transfer_qrs {
 	@Column(name = "expiration_date")
 	private Date expirationDate;
 
-	public Transfer_qrs(Tickets ticket, String qrCode, Date creationDate, Date expirationDate) {
+	public TransferQrs(Tickets ticket, String qrCode, Date creationDate, Date expirationDate) {
 		super();
 		this.ticket = ticket;
 		this.qrCode = qrCode;

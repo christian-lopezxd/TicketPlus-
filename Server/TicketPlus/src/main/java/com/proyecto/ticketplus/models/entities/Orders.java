@@ -40,7 +40,7 @@ public class Orders {
 	
 	@OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Orders_ticket> ordersTickets;
+	private List<OrdersTicket> ordersTickets;
 
 	public Orders(Actions action, Date actionDate) {
 		super();

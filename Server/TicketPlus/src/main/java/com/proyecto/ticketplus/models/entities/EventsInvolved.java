@@ -17,24 +17,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "events_sponsor")
-public class Events_sponsor {
+@Table(name = "events_involved")
+public class EventsInvolved {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_event_sponsor")
-	private UUID idEventSponsor;
+	@Column(name = "id_event_involved")
+	private UUID idEventInvolved;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_event", nullable = true)
 	private Events event;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_sponsor", nullable = true)
-	private Sponsors sponsor;
-
-	public Events_sponsor(Events event, Sponsors sponsor) {
-		super();
-		this.event = event;
-		this.sponsor = sponsor;
-	}
+	@JoinColumn(name = "id_involved", nullable = true)
+	private Involved involved;
 }

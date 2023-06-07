@@ -55,7 +55,7 @@ public class Users {
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Users_roles> userRoles;
+	private List<UsersRoles> userRoles;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore

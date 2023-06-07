@@ -50,15 +50,15 @@ public class Tickets {
 	
 	@OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Orders_ticket> ordersTickets;
+	private List<OrdersTicket> ordersTickets;
 	
 	@OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Transfer_qrs> transferQrs;
+	private List<TransferQrs> transferQrs;
 	
 	@OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Verification_qrs> verificationQrs;
+	private List<VerificationQrs> verificationQrs;
 
 	public Tickets(Users user, Tiers tier, Date purchasedDate, Date redeemed_date, boolean redeemed) {
 		super();

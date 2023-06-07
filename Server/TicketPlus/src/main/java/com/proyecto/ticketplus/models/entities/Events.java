@@ -33,7 +33,7 @@ public class Events {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_event_category", nullable = true)
-	private Event_categories eventCategory;
+	private EventCategories eventCategory;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_place", nullable = true)
@@ -68,7 +68,7 @@ public class Events {
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Events_involved> eventsInvolved;
+	private List<EventsInvolved> eventsInvolved;
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -76,9 +76,9 @@ public class Events {
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
 	@JsonIgnore
-	private List<Events_sponsor> eventsSponsor;
+	private List<EventsSponsor> eventsSponsor;
 
-	public Events(Event_categories eventCategory, Places place, String title, Date startDate, Date endDate, Date qrScanStartTime, String description, String cardPicture, String bannerPicture, boolean active, boolean archived) {
+	public Events(EventCategories eventCategory, Places place, String title, Date startDate, Date endDate, Date qrScanStartTime, String description, String cardPicture, String bannerPicture, boolean active, boolean archived) {
 		super();
 		this.eventCategory = eventCategory;
 		this.place = place;
