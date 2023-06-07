@@ -1,18 +1,18 @@
 import React from "react";
 import Footer from "../../Components/User/Footer/Footer";
 import Navbar from "../../Components/User/Navbar/Navbar";
+import CardContainer from "../../Components/Admin/CardContainer/CardContainer";
 import Title from "../../Components/User/Title/Title";
-import CardContainerEmployee from "../../Components/User/CardContainer/CardContainerEmployee";
 
-const LobbyEmployee = () => {
+const LobbyAdmin = () => {
   return (
     <section className="bg-backgroundicons bg-repeat">
       <Navbar />
-      <Title title="Actual Events" />
-      <CardContainerEmployee />
+      <Title title="All Events" />
+      <CardContainer />
       <Footer />
     </section>
   );
 };
 
-export default LobbyEmployee;
+export default LobbyAdmin;
