@@ -1,13 +1,14 @@
 import React from "react";
-import CardEmployee from "./Card/Card";
+import Card from "./Card/Card";
 
-const CardContainerEmployee =()=>{
+const CardContainer =()=>{
     return (
-        <div className="flex flex-wrap gap-10 justify-center p-5">
+        <div className="flex flex-wrap gap-10 justify-center p-5 min-h-[80vh]">
             <Card />
+            
             
             
         </div>
     )
 }
-export default CardContainerEmployee;
+export default CardContainer;

@@ -5,9 +5,9 @@ import { IoCalendarClearOutline } from 'react-icons/io5';
 import { IoTicketOutline } from 'react-icons/io5';
 import { FiClock } from 'react-icons/fi';
 
-const CardEmployee = () => {
+const Card = () => {
     return (
-        <div className="bg-white min-w-1/5 max-w-1/3 flex flex-col sm:max-w-full rounded-lg justify-center drop-shadow-2xl hover:scale-105">
+        <div className="bg-white min-w-1/5 max-w-1/3 flex flex-col sm:max-w-full rounded-lg justify-center drop-shadow-2xl h-fit hover:scale-105">
             <img src={ariana} className="w-full  rounded-t-lg "/>
             <h1 className="text-center font-montserrat font-normal text-lg p-1">Ariana Grande: Dangerous Woman Tour</h1>
             <hr/>
@@ -26,4 +26,4 @@ const CardEmployee = () => {
     )
 }
 
-export default CardEmployee;
+export default Card;
