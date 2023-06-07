@@ -3,7 +3,7 @@ import Bundle from "./Bundle.jsx/Bundle";
 
 const BundleContainer = () => {
     return(
-        <div >
+        <div  className="min-h-80vh md:w-full">
             <Bundle/>
         </div>
     )
