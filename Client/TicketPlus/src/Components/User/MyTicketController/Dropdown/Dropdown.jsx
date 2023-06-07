@@ -30,8 +30,8 @@ const Dropdown = () => {
         
       >
         <Menu.Items className="bg-newblue  w-[100%] absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none text-center flex justify-center text-white">
-          <div className="py-1">
-            <Menu.Item className="">
+          <div className="py-1 w-full ">
+            <Menu.Item className="hover:bg-darkblue w-full">
               {({ active }) => (
                 <a
                   href="#"
@@ -44,7 +44,7 @@ const Dropdown = () => {
                 </a>
               )}
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item className="hover:bg-darkblue">
               {({ active }) => (
                 <a
                   href="/"
@@ -53,11 +53,11 @@ const Dropdown = () => {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  Support
+                  Price
                 </a>
               )}
             </Menu.Item>
-            <Menu.Item>
+            <Menu.Item className="hover:bg-darkblue">
               {({ active }) => (
                 <a
                   href="#"
@@ -66,7 +66,7 @@ const Dropdown = () => {
                     'block px-4 py-2 text-sm'
                   )}
                 >
-                  License
+                  Name
                 </a>
               )}
             </Menu.Item>

@@ -34,6 +34,7 @@ export default {
       // => @media (max-width: 767px) { ... }
 
       'md': {'max': '900px'},
+      'chibby': {'max': '500px'}
       // => @media (max-width: 639px) { ... }
     },
 
