@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom";
 
 const Anchors = () => {
   return (
-    <div className="text-white flex md:hidden items-center">
+    <div className="text-white flex md:hidden items-center ">
       <NavLink to="/About" className="mx-4 flex items-center gap-1 hover:text-darkwhite duration-500">
         <FiAlertCircle />
         About
