@@ -3,7 +3,7 @@ import React from "react";
 const RedeemTicket = () =>{
     return(
         <section>
-
+            
         </section>
     )
 }
