@@ -1,7 +1,6 @@
 import React from "react";
-import { ImCheckmark, ImCross } from 'react-icons/im';
+import { ImCross } from 'react-icons/im';
 import Test from "./QRReader/QRReader";
-import QRCode from "react-qr-code";
 
 const ValidatorTicket = () => {
   return(
@@ -21,7 +20,6 @@ const ValidatorTicket = () => {
       <button className=" flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful rounded font-montserrat text-white font-normal py-2 px-4 "><ImCross/>Cancel</button>
       </div>
     </div>
-
   )
 }
 
