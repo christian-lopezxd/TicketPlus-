@@ -4,6 +4,7 @@ import { IoLocationOutline } from 'react-icons/io5';
 import { IoCalendarClearOutline } from 'react-icons/io5';
 import { IoTicketOutline } from 'react-icons/io5';
 import { FiClock } from 'react-icons/fi';
+import { NavLink } from "react-router-dom";
 
 const Card = () => {
     return (
@@ -17,7 +18,7 @@ const Card = () => {
             <p className="font-montserrat font-normal flex items-center text-lg gap-1"><FiClock/> 7:00PM - 10:00PM</p>
             <p className="font-montserrat font-normal flex items-center text-lg gap-1"><IoTicketOutline/> Concert</p>
             <div className="flex flex-col p-2 items-center ">
-            <button className="bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3">View More</button>
+            <NavLink to="/Event"><button className="bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3">View More</button></NavLink>
 
             </div>
             </div>
