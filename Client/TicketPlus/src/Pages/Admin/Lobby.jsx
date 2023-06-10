@@ -1,6 +1,6 @@
 import React from "react";
-import Footer from "../../Components/User/Footer/Footer";
-import Navbar from "../../Components/User/Navbar/Navbar";
+import Footer from "../../Components/Admin/Footer/Footer";
+import Navbar from "../../Components/Admin/Navbar/Navbar";
 import CardContainer from "../../Components/Admin/CardContainer/CardContainer";
 import Title from "../../Components/User/Title/Title";
 
