@@ -6,7 +6,7 @@ const Test = (props) => {
 
 
   return (
-    <div className=''>
+    <div className=' '>
       <QrReader className=''
       
 
@@ -19,7 +19,7 @@ const Test = (props) => {
             console.info(error);
           }
         }}
-        style={{ width: '100%'}}
+        
         facingMode="environment"
 
       />

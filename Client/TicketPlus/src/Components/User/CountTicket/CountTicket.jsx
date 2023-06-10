@@ -1,5 +1,4 @@
 import React from "react";
-import { ImCheckmark, ImCross } from 'react-icons/im';
 
 const CountTicket = () => {
   return(
