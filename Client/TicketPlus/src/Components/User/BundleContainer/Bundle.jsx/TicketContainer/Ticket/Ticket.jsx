@@ -22,12 +22,12 @@ const Ticket = () => {
             <div className="w-full h-[20rem] xl:h-[20rem] sm:h-[20rem] bg-black sm:w-full md:h-[14rem] flex  rounded-2xl  opacity-50 flex-row pr-5 font-montserrat flex flex-row items-center justify-center gap-5 relative "></div>
             <div className=" flex flex-row items-center justify-center h-full w-full gap-2 absolute top-0">
               <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 z-10 ">
-                <NavLink to="Redeem" className="flex items-center gap-2">
+                <NavLink to="/Redeem" className="flex items-center gap-2">
                   <BsQrCodeScan /> Generate QR code
                 </NavLink>
               </button>
               <button className="flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 opacity-100 ">
-                <NavLink to="ShareTicket" className="flex items-center gap-2">
+                <NavLink to="/ShareTicket" className="flex items-center gap-2">
                   {" "}
                   <FaShare /> Transfer Ticket
                 </NavLink>
@@ -38,7 +38,7 @@ const Ticket = () => {
 
         {/*hover */}
 
-        <div className="bg-white md:justify-center  rounded-2xl flex flex-col p-5 md:rounded-b-2xl md:rounded-t-none ">
+        <div className="bg-selector md:justify-center  rounded-2xl flex flex-col p-5 md:rounded-b-2xl md:rounded-t-none ">
           <div className=" -rotate-90 md:-rotate-0 h-full flex flex-col gap-3 max-h-100% max-w-100%">
             <h1 className="text-center">
               This ticket is valid for one person only
@@ -70,7 +70,7 @@ const Ticket = () => {
               </li>
               <li>
                 <p className="flex items-center gap-2">
-                  <IoTicketOutline />
+                  <IoTicketOutline /> 
                   Tier
                 </p>
               </li>
@@ -78,12 +78,12 @@ const Ticket = () => {
 
             <div className="flex-row justify-center gap-5 hidden md:flex md:flex-col md:text-sm font-bold">
               <button className="flex flex-row items-center gap-2 bg-newblue md:justify-center hover:bg-darkblue py-4 px-4 rounded-2xl font-montserrat text-white font-semibold py-1 px-3 z-10 ">
-                <NavLink to="Redeem" className="flex items-center gap-2">
+                <NavLink to="/Redeem" className="flex items-center gap-2">
                   <BsQrCodeScan /> Generate QR code
                 </NavLink>
               </button>
               <button className="flex flex-row items-center gap-2 bg-unsuccesful md:justify-center hover:bg-darkunsuccesful py-4 px-4 rounded-2xl font-montserrat text-white font-semibold py-1 px-3 opacity-100 ">
-                <NavLink to="ShareTicket" className="flex items-center gap-2">
+                <NavLink to="/ShareTicket" className="flex items-center gap-2">
                   {" "}
                   <FaShare />
                   Transfer Ticket

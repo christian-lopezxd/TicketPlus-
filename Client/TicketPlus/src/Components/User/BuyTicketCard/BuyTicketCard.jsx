@@ -32,7 +32,7 @@ const BuyTicketCard = (props) => {
           icon: 'success',
           iconColor: '#4064E3',
           title: 'Tickets agregados a tu cuenta',
-          confirmButtonText: '<a href="/">Ok</a>',
+          confirmButtonText: '<a href="/MyTickets">Ok</a>',
           confirmButtonColor: '#4064E3',
         }
         )
