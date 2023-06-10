@@ -22,21 +22,21 @@ ChartJS.register(
     Filler
 );
 
-var beneficios = [72, 56, 20, 36, 80, 40, 30, -20, 25, 30, 12, 60];
-var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+var Venta_de_Entradas = [72, 156, 205, 136];
+var Tipos_de_Entradas = ["General", "Premium", "Platinum", "VIP"];
 
 var misoptions = {
     responsive : true,
     animation : false,
     plugins : {
         legend : {
-            display : false
+            
         }
     },
     scales : {
         y : {
-            min : -25,
-            max : 100
+            min : 0,
+            max : 300
         },
         x: {
             ticks: { color: 'rgba(0, 220, 195)'}
@@ -45,11 +45,11 @@ var misoptions = {
 };
 
 var midata = {
-    labels: meses,
+    labels: Tipos_de_Entradas,
     datasets: [
         {
-            label: 'Beneficios',
-            data: beneficios,
+            label: 'Venta de Entradas',
+            data: Venta_de_Entradas,
             backgroundColor: 'rgba(0, 220, 195, 0.5)'
         }
     ]
