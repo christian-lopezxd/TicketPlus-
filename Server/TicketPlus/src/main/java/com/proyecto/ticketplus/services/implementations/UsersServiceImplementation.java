@@ -42,4 +42,9 @@ public class UsersServiceImplementation implements IUsersService{
 		
 		return null;
 	}
+
+	@Override
+	public Boolean comparePassword(String toCompare, String current) {
+		return passwordEncoder.matches(toCompare, current);
+	}
 }

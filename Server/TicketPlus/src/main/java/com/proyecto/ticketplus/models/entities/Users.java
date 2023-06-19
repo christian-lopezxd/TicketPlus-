@@ -48,10 +48,10 @@ public class Users {
 	private String password;
 
 	@Column(name = "verified")
-	private boolean verified;
+	private Boolean verified;
 	
 	@Column(name = "active")
-	private boolean active;
+	private Boolean active;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore

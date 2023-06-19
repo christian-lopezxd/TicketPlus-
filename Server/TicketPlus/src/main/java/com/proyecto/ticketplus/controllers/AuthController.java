@@ -7,12 +7,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
-//import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
+import com.proyecto.ticketplus.models.dtos.users.LogInPasswordDTO;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.RequestErrorHandler;
@@ -41,11 +42,40 @@ public class AuthController {
 		//return null;
 	//}
 	
-	//@PostMapping("/sign-in/password")
-	//private ResponseEntity<?> signInPassword(@ModelAttribute @Valid LogInPasswordDTO data, BindingResult validations) {
-		//TODO
-		//return null;
-	//}
+	@PostMapping("/sign-in/password")
+	private ResponseEntity<?> signInPassword(@ModelAttribute @Valid LogInPasswordDTO data, BindingResult validations) {
+		if (validations.hasErrors()) {
+			return new ResponseEntity<>(errorHandler.mapErrors(validations.getFieldErrors()), HttpStatus.BAD_REQUEST);
+		}
+		
+		Users user = userService.findOneByEmail(data.getEmail());
+		
+		if (user == null) {
+			return new ResponseEntity<>(new MessageDTO("User do not exits! Make sure you have signed in with Google first"), HttpStatus.NOT_FOUND);
+		}
+		
+		if (!user.getVerified()) {
+			//TODO send email to activate account
+			
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.NOT_FOUND);
+		}
+		
+		if (!user.getActive()) {
+			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.NOT_FOUND);
+		}
+		
+		if (user.getPassword() == null) {
+			return new ResponseEntity<>(new MessageDTO("User has not set a password! Make sure you have signed in with Google first"), HttpStatus.CONFLICT);
+		}
+		
+		Boolean validPassword = userService.comparePassword(data.getPassword(), user.getPassword());
+		
+		if (!validPassword) {
+			return new ResponseEntity<>(new MessageDTO("Invalid credentials"), HttpStatus.UNAUTHORIZED);
+		}
+		
+		return new ResponseEntity<>(new MessageDTO("Logged in"), HttpStatus.OK);
+	}
 	
 	//PUT
 	
@@ -62,11 +92,17 @@ public class AuthController {
 		Users user = userService.findOneByEmail(data.getEmail());
 		
 		if (user == null) {
-			return new ResponseEntity<>(new MessageDTO("User do not exits! Make sure you have signed up with Google first"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User do not exits! Make sure you have signed in with Google first"), HttpStatus.NOT_FOUND);
+		}
+		
+		if (!user.getVerified()) {
+			//TODO send email to activate account
+			
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verify your account first"), HttpStatus.NOT_FOUND);
 		}
 		
 		if (user.getPassword() != null) {
-			return new ResponseEntity<>(new MessageDTO("User has already set a password! Make sure to log in with your creadentials"), HttpStatus.CONFLICT);
+			return new ResponseEntity<>(new MessageDTO("User has already set a password! Make sure to sign in with your creadentials"), HttpStatus.CONFLICT);
 		}
 		
 		if (data.getNewPassword() != data.getNewPasswordConfirm()) {
