@@ -150,6 +150,7 @@ const eventos = [
 
 const CardContainer =()=>{
     return (
+
         <div className="flex flex-wrap gap-10 justify-center p-5 chibby:px-2 sm:p-10 min-h-80vh">
            {
             eventos.map((evento)=> {
@@ -162,6 +163,7 @@ const CardContainer =()=>{
 
            } 
            
+
             
         </div>
     )
