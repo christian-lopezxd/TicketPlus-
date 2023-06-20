@@ -4,7 +4,7 @@ const eventos = [
     {
       id: 1,
       imagen: "https://psicocode.com/wp-content/uploads/2023/02/calamardo.jpg",
-      titulo: "titulo",
+      titulo: "titulo 1",
       localizacion: "Lugar 1",
       fecha: "2023-06-15",
       horaEntrada: "18:00",
@@ -14,7 +14,7 @@ const eventos = [
     {
       id: 2,
       imagen: "https://pbs.twimg.com/media/EdAiTGDXsAwi2XP.jpg",
-      titulo: "titulo",
+      titulo: "titulo 2",
       localizacion: "Lugar 2",
       fecha: "2023-06-16",
       horaEntrada: "19:30",
@@ -24,7 +24,7 @@ const eventos = [
     {
       id: 3,
       imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9zFajZrBbr-MS__vcvNVVgkv9EpPAIEahYw&usqp=CAU",
-      titulo: "titulo",
+      titulo: "titulo 2",
       localizacion: "Lugar 3",
       fecha: "2023-06-17",
       horaEntrada: "20:00",
@@ -35,8 +35,8 @@ const eventos = [
     {
       id: 4,
       imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcyMuXWcdBhH_zNxP-yRmEJsGLQKuOOeO89w&usqp=CAU",
-      titulo: "titulo",
-      localizacion: "Lugar 4",
+      titulo: "titulo 2",
+      localizacion: "Lugar 5",
       fecha: "2023-06-18",
       horaEntrada: "17:00",
       horaSalida: "21:00",
@@ -45,7 +45,7 @@ const eventos = [
     {
       id: 5,
       imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG1U_F78hEcSN2pM02BKTmXijikBvLT5fbDA&usqp=CAU",
-      titulo: "titulo",
+      titulo: "titulo 5",
       localizacion: "Lugar 5",
       fecha: "2023-06-19",
       horaEntrada: "19:00",
