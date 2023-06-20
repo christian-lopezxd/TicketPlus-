@@ -9,7 +9,7 @@ const EmployeeRouter = () => {
     return (
         <Routes>
             <Route path="/" element={<LobbyEmployee/>}></Route>
-            <Route path="/Event" element={<EventInfoPreValidate/>}></Route>
+            <Route path="/Event/:id" element={<EventInfoPreValidate/>}></Route>
             <Route path="/ValidateTicket" element={<ValidateTicket/>}></Route>
 
         </Routes>
