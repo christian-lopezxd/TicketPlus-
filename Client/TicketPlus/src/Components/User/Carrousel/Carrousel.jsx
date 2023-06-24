@@ -10,7 +10,7 @@ const banners = [
     },
   {
     image:
-      "https://i.pinimg.com/originals/4b/fc/8c/4bfc8cf9fdda46cbb9890d55fde35218.jpg",
+      "https://pbs.twimg.com/media/CinyfqsUkAAQlZ1?format=jpg&name=4096x4096",
       id: "1"
     },{
     image : "https://creative-commission.com/sites/default/files/styles/img_res_4/public/media/img/2022/03/img_45394_729983_07f04e80.jpeg?itok=IK2Kz0NM",
