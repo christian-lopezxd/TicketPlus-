@@ -18,7 +18,7 @@ const UserRouter = () => {
             <Route path="/Events" element={<EventInfo/>}></Route>
             <Route path="/Event:id" element={<EventInfo />}></Route>
             <Route path="/MyTickets" element={<MyTickets/>}></Route>
-            <Route path="/BuyTicket" element={<BuyTicket/>}></Route>
+            <Route path="/BuyTicket:id" element={<BuyTicket/>}></Route>
             <Route path="/ShareTicket" element={<ShareTicket/>}></Route>
             <Route path="/ScanShareTicket" element={<ScanShareTicket/>}></Route>
             <Route path="/ReceiveTicket" element={<ReceiveTicket/>}></Route>

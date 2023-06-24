@@ -63,7 +63,7 @@ const EventInfoCardPreValidate = (props) => {
           <ImCross />
           Cancel
         </button>
-        <NavLink to="/ValidateTicket">
+        <NavLink to={`/ValidateTicket:${props.id}`}>
           {" "}
           <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue rounded font-montserrat text-white font-normal py-2 px-4 ">
             <ImTicket />

@@ -24,7 +24,7 @@ const EventInfoCard = (props) => {
     
     <div className="flex justify-end gap-2">
             <button className=" flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 "><ImCross/>Deny</button>
-            <NavLink to="/BuyTicket"> <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 "><ImTicket />Buy Tickets</button> </NavLink>
+            <NavLink to={`/BuyTicket:${props.id}`}> <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 "><ImTicket />Buy Tickets</button> </NavLink>
             
         </div>
     </div>
