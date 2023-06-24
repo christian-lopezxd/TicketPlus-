@@ -24,7 +24,7 @@ const Anchors = () => {
          <IoTicketOutline className="hover:bg-black h-full" />
          
       </NavLink>
-      <NavLink to="/Profile" className="flex items-center gap-1 hover:bg-black h-full p-3" title="My Profile">
+      <NavLink to="/Profile:id" className="flex items-center gap-1 hover:bg-black h-full p-3" title="My Profile">
 
       <FiUser />
       </NavLink>
