@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "image": "https://psicocode.com/wp-content/uploads/2023/02/calamardo.jpg",
+        "banner": "https://pbs.twimg.com/media/EdAiTGDXsAwi2XP.jpg",
+        "title": "titulo 1",
+        "locate": "F",
+        "date": "2023-06-15",
+        "startTime": "17:00",
+        "endTime": "23:00",
+        "category": "concierto",
+        "tiers": [{
+            "id" : 1,
+            "name" : "General",
+            "capacity" : 100,
+            "able" : 100,
+            "sold" : 0
+        },
+        {
+            "id" : 2,
+            "name" : "Platinum",
+            "capacity" : 100
+            
+        },
+        {
+            "id" : 3,
+            "name" : "Vip",
+            "capacity" : 100
+            
+        },
+        {
+            "id" : 4,
+            "name" : "UltraVIP",
+            "capacity" : 100
+            
+        }
+    ]
+    },
+    {
+        "id": 2,
+        "image": "https://pbs.twimg.com/media/EdAiTGDXsAwi2XP.jpg",
+        "banner": "https://pbs.twimg.com/media/EdAiTGDXsAwi2XP.jpg",
+        "title": "titulo 2",
+        "locate": "Lugar 2",
+        "date": "2023-06-16",
+        "startTime": "19:30",
+        "endTime": "22:30",
+        "category": "concierto"
+    },
+    {
+        "id": 3,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9zFajZrBbr-MS__vcvNVVgkv9EpPAIEahYw&usqp=CAU",
+        "banner": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9zFajZrBbr-MS__vcvNVVgkv9EpPAIEahYw&usqp=CAU",
+        "title": "titulo 2",
+        "locate": "Lugar 3",
+        "date": "2023-06-17",
+        "startTime": "20:00",
+        "endTime": "00:00",
+        "category": "entretenimiento"
+    },
+    {
+        "id": 4,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcyMuXWcdBhH_zNxP-yRmEJsGLQKuOOeO89w&usqp=CAU",
+        "banner": "",
+        "title": "titulo 2",
+        "locate": "Lugar 5",
+        "date": "2023-06-18",
+        "startTime": "17:00",
+        "endTime": "21:00",
+        "category": "concierto"
+    },
+    {
+        "id": 5,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG1U_F78hEcSN2pM02BKTmXijikBvLT5fbDA&usqp=CAU",
+        "banner": "",
+        "title": "titulo 5",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 6,
+        "image": "https://assetsio.reedpopcdn.com/new-pokemon-anime.jpeg?width=1600&height=900&fit=crop&quality=100&format=png&enable=upscale&auto=webp",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 7,
+        "image": "https://m.media-amazon.com/images/M/MV5BZWEzMWFmMDctMDNmNi00NzVjLTgyNmQtNGY5Nzc1N2E4MGM0XkEyXkFqcGdeQXVyNzI3NjY3NjQ@._V1_.jpg",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 8,
+        "image": "https://cdn.pixabay.com/photo/2020/08/10/13/51/pikachu-5477886_640.jpg",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 9,
+        "image": "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 10,
+        "image": "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 11,
+        "image": "https://storage.googleapis.com/proudcity/mebanenc/uploads/2021/03/placeholder-image.png",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 12,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG1U_F78hEcSN2pM02BKTmXijikBvLT5fbDA&usqp=CAU",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 13,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG1U_F78hEcSN2pM02BKTmXijikBvLT5fbDA&usqp=CAU",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    },
+    {
+        "id": 14,
+        "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG1U_F78hEcSN2pM02BKTmXijikBvLT5fbDA&usqp=CAU",
+        "banner": "",
+        "title": "titulo",
+        "locate": "Lugar 5",
+        "date": "2023-06-19",
+        "startTime": "19:00",
+        "endTime": "23:30",
+        "category": "social"
+    }
+]
