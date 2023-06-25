@@ -11,7 +11,7 @@ const Lobby = () => {
   const url = "./src/Data/Events.json";
 
 
-  let [eventos, setEventos] = useState([0])
+  let [eventos, setEventos] = useState([1,2,3,4,5])
 
 
   useEffect(() =>{
