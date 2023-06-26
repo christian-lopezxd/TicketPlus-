@@ -6,7 +6,7 @@ import Card from "./Card/Card";
 const CardContainer = (props) => {
   
   const Eventos = props.Eventos
-  console.log[ Eventos]
+  
 
 
   

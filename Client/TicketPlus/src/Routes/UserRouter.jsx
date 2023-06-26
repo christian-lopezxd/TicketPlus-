@@ -10,6 +10,7 @@ import ShareTicket from "../Pages/User/ShareTicket";
 import ReceiveTicket from "../Pages/User/ReceiveTicket";
 import ScanShareTicket from "../Pages/User/ScanShareTicket";
 import Profile from "../Pages/User/Profile";
+import NotFound from "../Pages/NoAuth/NotFound";
 
 const UserRouter = () => {
     return (
@@ -24,6 +25,7 @@ const UserRouter = () => {
             <Route path="/ReceiveTicket" element={<ReceiveTicket/>}></Route>
             <Route path="/Redeem/:id" element={<RedeemTicket/>}></Route>
             <Route path="/Profile/:id" element={<Profile />}></Route>
+            <Route path="*" element={<NotFound/>}></Route>
 
         </Routes>
     )

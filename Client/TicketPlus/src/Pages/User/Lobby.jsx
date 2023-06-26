@@ -6,7 +6,7 @@ import Title from "../../Components/User/Title/Title";
 import Carrousel from "../../Components/User/Carrousel/Carrousel";
 import { useState } from "react";
 import { useEffect } from "react";
-import Swal from 'sweetalert2'
+
 
 const Lobby = () => {
   const url = "./src/Data/Events.json";
@@ -26,7 +26,7 @@ const Lobby = () => {
     
     
   }, [])
-  console.log(eventos)
+  
 
   
   
