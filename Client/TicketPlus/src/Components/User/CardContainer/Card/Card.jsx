@@ -20,7 +20,7 @@ const Card = (props) => {
             <p className="font-montserrat font-normal flex items-center text-lg gap-1"><FiClock/> {props.horaEntrada} - {props.horaSalida}</p>
             <p className="font-montserrat font-normal flex items-center text-lg gap-1"><IoTicketOutline/> {props.categoria}  </p>
             <div className="flex flex-col p-2 items-center ">
-            <NavLink to={`/Event:${props.id}`}><button className="bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3">View More</button></NavLink>
+            <NavLink to={`/Event/${props.id}`}><button className="bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3">View More</button></NavLink>
 
             </div>
             </div>

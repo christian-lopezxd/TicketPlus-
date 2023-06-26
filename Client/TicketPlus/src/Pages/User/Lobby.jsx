@@ -6,6 +6,7 @@ import Title from "../../Components/User/Title/Title";
 import Carrousel from "../../Components/User/Carrousel/Carrousel";
 import { useState } from "react";
 import { useEffect } from "react";
+import Swal from 'sweetalert2'
 
 const Lobby = () => {
   const url = "./src/Data/Events.json";
@@ -27,7 +28,13 @@ const Lobby = () => {
   }, [])
   console.log(eventos)
 
- 
+  const verify = () =>{
+    Swal.fire(
+      'Good job!',
+      'You clicked the button!',
+      'success'
+    )
+  };
   
   
 
@@ -36,6 +43,7 @@ const Lobby = () => {
     <section className="bg-backgroundicons bg-repeat">
       <Navbar />
       <Carrousel Eventos = {eventos} />
+      <button onClick={verify}>hola como estas</button>
       <Title title="Next Events" />
       <CardContainer Eventos = {eventos} />
       <Footer />
