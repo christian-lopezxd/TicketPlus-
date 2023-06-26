@@ -28,13 +28,6 @@ const Lobby = () => {
   }, [])
   console.log(eventos)
 
-  const verify = () =>{
-    Swal.fire(
-      'Good job!',
-      'You clicked the button!',
-      'success'
-    )
-  };
   
   
 
@@ -43,7 +36,6 @@ const Lobby = () => {
     <section className="bg-backgroundicons bg-repeat">
       <Navbar />
       <Carrousel Eventos = {eventos} />
-      <button onClick={verify}>hola como estas</button>
       <Title title="Next Events" />
       <CardContainer Eventos = {eventos} />
       <Footer />

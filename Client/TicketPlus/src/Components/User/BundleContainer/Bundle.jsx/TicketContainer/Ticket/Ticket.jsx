@@ -20,17 +20,21 @@ const Ticket = (props) => {
           <div className="w-[100%] h-full rounded-2xl top-0 absolute hidden group-hover:block md:group-hover:hidden overflow-hidden">
             <div className="w-full h-[20rem] xl:h-[20rem] sm:h-[20rem] bg-black sm:w-full md:h-[14rem] flex  rounded-2xl  opacity-50 flex-row pr-5 font-montserrat flex flex-row items-center justify-center gap-5 relative "></div>
             <div className=" flex flex-row items-center justify-center h-full w-full gap-2 absolute top-0">
+            <NavLink to={`/Redeem/${props.id}`} className="flex items-center gap-2">
               <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 z-10 ">
-                <NavLink to={`/Redeem:${props.id}`} className="flex items-center gap-2">
+             
                   <BsQrCodeScan /> Generate QR code
-                </NavLink>
+                
               </button>
-              <button className="flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 opacity-100 ">
-                <NavLink to={`/ShareTicket:${props.id}`} className="flex items-center gap-2">
+              </NavLink>
+              <NavLink to={`/ShareTicket/${props.id}`} className="flex items-center gap-2">
                   {" "}
+              <button className="flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 opacity-100 ">
+                
                   <FaShare /> Transfer Ticket
-                </NavLink>
+               
               </button>
+              </NavLink>
             </div>
           </div>
         </div>
@@ -76,18 +80,22 @@ const Ticket = (props) => {
             </ul>
 
             <div className="flex-row justify-center gap-5 hidden md:flex md:flex-col md:text-sm font-bold">
+            <NavLink to={`/Redeem/${props.id}`} className="flex items-center gap-2">
               <button className="flex flex-row items-center gap-2 bg-newblue md:justify-center hover:bg-darkblue py-4 px-4 rounded-2xl font-montserrat text-white font-semibold py-1 px-3 z-10 ">
-                <NavLink to="/Redeem" className="flex items-center gap-2">
+                
                   <BsQrCodeScan /> Generate QR code
-                </NavLink>
+               
               </button>
-              <button className="flex flex-row items-center gap-2 bg-unsuccesful md:justify-center hover:bg-darkunsuccesful py-4 px-4 rounded-2xl font-montserrat text-white font-semibold py-1 px-3 opacity-100 ">
-                <NavLink to="/ShareTicket" className="flex items-center gap-2">
+              </NavLink>
+              <NavLink to={`/ShareTicket/${props.id}`} className="flex items-center gap-2">
                   {" "}
+              <button className="flex flex-row items-center gap-2 bg-unsuccesful md:justify-center hover:bg-darkunsuccesful py-4 px-4 rounded-2xl font-montserrat text-white font-semibold py-1 px-3 opacity-100 ">
+                
                   <FaShare />
                   Transfer Ticket
-                </NavLink>
+                
               </button>
+              </NavLink>
             </div>
           </div>
         </div>

@@ -7,10 +7,16 @@ import { FiClock } from 'react-icons/fi';
 import { ImCross } from 'react-icons/im';
 import { ImTicket } from 'react-icons/im';
 import TicketSelector from "./TicketSelector/TicketSelector";
+import { NavLink } from "react-router-dom";
 
 
 
 const BuyTicketCard = (props) => {
+
+  const handleConfirm = () => {
+   
+    window.location.href = '/MyTickets';
+  };
 
   const verify = () =>{
     Swal.fire({
@@ -31,12 +37,21 @@ const BuyTicketCard = (props) => {
           icon: 'success',
           iconColor: '#4064E3',
           title: 'Tickets agregados a tu cuenta',
-          confirmButtonText: '<a href="/MyTickets">Ok</a>',
+          confirmButtonAriaLabel: 'ta bueno',
           confirmButtonColor: '#4064E3',
+          
         }
-        )
+        ).then((result) => {
+          if (result.isConfirmed) {
+            // Llamar a la función handleConfirm cuando se confirme
+            handleConfirm();
+          }
+        });
+        
       }
-    })
+    },
+    
+    )
   };
 
     return(
@@ -64,8 +79,8 @@ const BuyTicketCard = (props) => {
           </div>
        </div>
       
-      <div className="flex justify-end gap-2">
-              <button className=" flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 "><ImCross/>Cancel</button>
+      <div className="flex justify-end gap-2" >
+             <NavLink to={`/Event/${props.id}`}> <button className=" flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 "><ImCross/>Cancel</button> </NavLink>
               <button onClick={verify} className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-4 px-4 rounded font-montserrat text-white font-normal py-1 px-3 "><ImTicket />Buy</button>
               
           </div>
