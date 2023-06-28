@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
+import com.proyecto.ticketplus.models.dtos.tokens.TokenDTO;
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
 import com.proyecto.ticketplus.models.dtos.users.SignInGoogleDTO;
 import com.proyecto.ticketplus.models.dtos.users.SignInPasswordDTO;
+import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.RequestErrorHandler;
@@ -61,7 +63,15 @@ public class AuthController {
 			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<>(new MessageDTO("Signed in"), HttpStatus.OK);
+		//return new ResponseEntity<>(new MessageDTO("Signed in"), HttpStatus.OK);
+		
+		try {
+			Tokens token = userService.registerToken(user);
+			return new ResponseEntity<>(new TokenDTO(token), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@PostMapping("/sign-in/password")
@@ -96,7 +106,15 @@ public class AuthController {
 			return new ResponseEntity<>(new MessageDTO("Invalid credentials"), HttpStatus.UNAUTHORIZED);
 		}
 		
-		return new ResponseEntity<>(new MessageDTO("Signed in"), HttpStatus.OK);
+		//return new ResponseEntity<>(new MessageDTO("Signed in"), HttpStatus.OK);
+		
+		try {
+			Tokens token = userService.registerToken(user);
+			return new ResponseEntity<>(new TokenDTO(token), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	//PUT
