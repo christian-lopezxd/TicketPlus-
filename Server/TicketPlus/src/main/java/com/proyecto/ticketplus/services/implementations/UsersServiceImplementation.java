@@ -161,4 +161,11 @@ public class UsersServiceImplementation implements IUsersService{
 			}
 		});
 	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void cleanTokens() throws Exception {
+		List<Tokens> tokens = tokenRepository.findByActive(false);
+		tokenRepository.deleteAll(tokens);
+	}
 }

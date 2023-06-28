@@ -13,6 +13,7 @@ public interface IUsersService {
 	Tokens registerToken(Users user) throws Exception;
 	Boolean isTokenValid(Users user, String token);
 	void cleanTokens(Users user) throws Exception;
+	void cleanTokens() throws Exception;
 	
 	//Auth
 	void createUserGoogle(NewUserDTO newUserGoogle) throws Exception;
