@@ -1,6 +1,7 @@
 package com.proyecto.ticketplus.services.implementations;
 
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,9 +15,12 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
 import com.proyecto.ticketplus.models.dtos.users.NewUserDTO;
+import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
+import com.proyecto.ticketplus.repositories.ITokensRepository;
 import com.proyecto.ticketplus.repositories.IUsersRepository;
 import com.proyecto.ticketplus.services.IUsersService;
+import com.proyecto.ticketplus.utils.JWTTools;
 
 import jakarta.transaction.Transactional;
 
@@ -30,6 +34,12 @@ public class UsersServiceImplementation implements IUsersService{
 	
 	@Autowired
 	public PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JWTTools jwtTools;
+	
+	@Autowired
+	private ITokensRepository tokenRepository;
 	
 	@Override
 	@Transactional(rollbackOn = Exception.class)
@@ -106,5 +116,49 @@ public class UsersServiceImplementation implements IUsersService{
 	@Override
 	public Boolean comparePassword(String toCompare, String current) {
 		return passwordEncoder.matches(toCompare, current);
+	}
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public Tokens registerToken(Users user) throws Exception {
+		cleanTokens(user);
+		
+		String tokenString = jwtTools.generateToken(user);
+		Tokens token = new Tokens(tokenString, user);
+		
+		tokenRepository.save(token);
+		
+		return token;
+	}
+
+	@Override
+	public Boolean isTokenValid(Users user, String token) {
+		try {
+			cleanTokens(user);
+			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
+			
+			tokens.stream()
+				.filter(tk -> tk.getContent().equals(token))
+				.findAny()
+				.orElseThrow(() -> new Exception());
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}	
+	}
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void cleanTokens(Users user) throws Exception {
+		List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
+		
+		tokens.forEach(token -> {
+			if(!jwtTools.verifyToken(token.getContent())) {
+				token.setActive(false);
+				tokenRepository.save(token);
+			}
+		});
 	}
 }
