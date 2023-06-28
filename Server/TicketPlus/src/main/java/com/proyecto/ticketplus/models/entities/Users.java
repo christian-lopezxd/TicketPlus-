@@ -28,15 +28,6 @@ public class Users {
 	@Column(name = "id_user")
 	private UUID idUser;
 	
-	@Column(name = "id_google")
-	private String idGoogle;
-	
-	@Column(name = "access_token")
-	private String accessToken;
-	
-	@Column(name = "refresh_token")
-	private String refreshToken;
-	
 	@Column(name = "name")
 	private String name;
 	
@@ -48,10 +39,10 @@ public class Users {
 	private String password;
 
 	@Column(name = "verified")
-	private boolean verified;
+	private Boolean verified;
 	
 	@Column(name = "active")
-	private boolean active;
+	private Boolean active;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -61,15 +52,10 @@ public class Users {
 	@JsonIgnore
 	private List<Tickets> tickets;
 	
-	public Users(String idGoogle, String accessToken, String refreshToken, String name, String email, String password, boolean verified, boolean active) {
+	public Users(String name, String email, String password) {
 		super();
-		this.idGoogle = idGoogle;
-		this.accessToken = accessToken;
-		this.refreshToken = refreshToken;
 		this.name = name;
 		this.email = email;
 		this.password = password;
-		this.verified = verified;
-		this.active = active;
 	}
 }

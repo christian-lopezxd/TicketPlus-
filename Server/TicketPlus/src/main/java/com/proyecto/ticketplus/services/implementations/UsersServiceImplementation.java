@@ -1,13 +1,110 @@
 package com.proyecto.ticketplus.services.implementations;
 
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.gson.GsonFactory;
+import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
+import com.proyecto.ticketplus.models.dtos.users.NewUserDTO;
+import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.repositories.IUsersRepository;
 import com.proyecto.ticketplus.services.IUsersService;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class UsersServiceImplementation implements IUsersService{
+	@Value("${google.ClientId}")
+	private String clientId;
+	
 	@Autowired
 	private  IUsersRepository usersRepository;
+	
+	@Autowired
+	public PasswordEncoder passwordEncoder;
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void createUserGoogle(NewUserDTO newUserGoogle) throws Exception {
+		Users user = findOneByEmail(newUserGoogle.getEmail());
+		
+		if (user != null) {
+			Users newUser = new Users(
+					newUserGoogle.getName(),
+					newUserGoogle.getEmail(),
+					""
+					);
+			
+			usersRepository.save(newUser);
+			
+			//TODO send email to confirm login with password activation
+		}
+	}
+
+	@Override
+	public String verifyIdTokenGoogle(String idToken) {
+		NetHttpTransport transport = new NetHttpTransport();
+		JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
+		
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList(clientId)).build();
+		
+	    try {
+            GoogleIdToken idTokenObj = verifier.verify(idToken);
+            
+            if (idTokenObj == null) {
+            	 System.out.println("Bad token format");
+                return null;
+            }
+            
+            GoogleIdToken.Payload payload = idTokenObj.getPayload();
+            
+            NewUserDTO newUserGoogle = new NewUserDTO(
+            		(String) payload.get("given_name") + " " + (String) payload.get("family_name"),
+            		payload.getEmail()
+            		);
+            
+            createUserGoogle(newUserGoogle);
+            
+            return newUserGoogle.getEmail();
+        } catch (Exception e) {
+        	e.printStackTrace();
+        }
+	    
+		return null;
+	}
+	
+	@Override
+	public Users findOneByEmail(String email) {
+		Users user = usersRepository.findOneByEmail(email);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user;
+	}
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void signUpPassword(Users user, ChangePasswordDTO data) throws Exception {
+		user.setVerified(false);
+		user.setPassword(passwordEncoder.encode(data.getNewPassword()));
+		
+		usersRepository.save(user);
+		
+		//TODO send email to confirm login with password activation 
+	}
+
+	@Override
+	public Boolean comparePassword(String toCompare, String current) {
+		return passwordEncoder.matches(toCompare, current);
+	}
 }
