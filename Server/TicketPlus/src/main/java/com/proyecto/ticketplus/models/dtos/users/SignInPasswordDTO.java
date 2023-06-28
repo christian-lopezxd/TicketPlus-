@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LogInPasswordDTO {
+public class SignInPasswordDTO {
 	@NotEmpty(message = "Email required")
 	@Email(message = "Email format not valid")
 	private String email;
