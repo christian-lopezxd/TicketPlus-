@@ -50,7 +50,7 @@ public class UsersServiceImplementation implements IUsersService{
 			Users newUser = new Users(
 					newUserGoogle.getName(),
 					newUserGoogle.getEmail(),
-					""
+					null
 					);
 			
 			usersRepository.save(newUser);

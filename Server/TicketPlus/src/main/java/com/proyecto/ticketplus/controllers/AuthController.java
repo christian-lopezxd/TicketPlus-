@@ -18,6 +18,7 @@ import com.proyecto.ticketplus.models.dtos.users.SignInGoogleDTO;
 import com.proyecto.ticketplus.models.dtos.users.SignInPasswordDTO;
 import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
+import com.proyecto.ticketplus.services.IEmailService;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.RequestErrorHandler;
 
@@ -32,6 +33,9 @@ public class AuthController {
 	
 	@Autowired
 	private RequestErrorHandler errorHandler;
+	
+	@Autowired
+	private IEmailService emailService;
 	
 	//GET
 	
@@ -93,7 +97,7 @@ public class AuthController {
 		}
 		
 		if (!user.getActive()) {
-			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.UNAUTHORIZED);
 		}
 		
 		if (user.getPassword() == null) {
