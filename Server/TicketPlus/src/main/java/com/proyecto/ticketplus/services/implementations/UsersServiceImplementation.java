@@ -2,6 +2,7 @@ package com.proyecto.ticketplus.services.implementations;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,7 @@ import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.repositories.ITokensRepository;
 import com.proyecto.ticketplus.repositories.IUsersRepository;
+import com.proyecto.ticketplus.services.IEmailService;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.JWTTools;
 
@@ -41,6 +43,85 @@ public class UsersServiceImplementation implements IUsersService{
 	@Autowired
 	private ITokensRepository tokenRepository;
 	
+	@Autowired
+	private IEmailService emailService;
+	
+	//General
+	@Override
+	public Users findOneByEmail(String email) {
+		Users user = usersRepository.findOneByEmail(email);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user;
+	}
+	
+	@Override
+	public Users findOneByUUID(UUID idUser) {
+		Users user = usersRepository.findOneByIdUser(idUser);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user;
+	}
+	
+	//Token management
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public Tokens registerToken(Users user) throws Exception {
+		cleanTokens(user);
+		
+		String tokenString = jwtTools.generateToken(user);
+		Tokens token = new Tokens(tokenString, user);
+		
+		tokenRepository.save(token);
+		
+		return token;
+	}
+	
+	@Override
+	public Boolean isTokenValid(Users user, String token) {
+		try {
+			cleanTokens(user);
+			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
+			
+			tokens.stream()
+				.filter(tk -> tk.getContent().equals(token))
+				.findAny()
+				.orElseThrow(() -> new Exception());
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void cleanTokens(Users user) throws Exception {
+		List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
+		
+		tokens.forEach(token -> {
+			if(!jwtTools.verifyToken(token.getContent())) {
+				token.setActive(false);
+				tokenRepository.save(token);
+			}
+		});
+	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void cleanTokens() throws Exception {
+		List<Tokens> tokens = tokenRepository.findByActive(false);
+		tokenRepository.deleteAll(tokens);
+	}
+	
+	//Auth
 	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void createUserGoogle(NewUserDTO newUserGoogle) throws Exception {
@@ -50,15 +131,15 @@ public class UsersServiceImplementation implements IUsersService{
 			Users newUser = new Users(
 					newUserGoogle.getName(),
 					newUserGoogle.getEmail(),
-					""
+					null
 					);
 			
 			usersRepository.save(newUser);
 			
-			//TODO send email to confirm login with password activation
+			emailService.sendCreationEmail(newUser.getEmail());
 		}
 	}
-
+	
 	@Override
 	public String verifyIdTokenGoogle(String idToken) {
 		NetHttpTransport transport = new NetHttpTransport();
@@ -92,17 +173,6 @@ public class UsersServiceImplementation implements IUsersService{
 	}
 	
 	@Override
-	public Users findOneByEmail(String email) {
-		Users user = usersRepository.findOneByEmail(email);
-		
-		if (user == null) {
-			return null;
-		}
-		
-		return user;
-	}
-
-	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void signUpPassword(Users user, ChangePasswordDTO data) throws Exception {
 		user.setVerified(false);
@@ -110,7 +180,8 @@ public class UsersServiceImplementation implements IUsersService{
 		
 		usersRepository.save(user);
 		
-		//TODO send email to confirm login with password activation 
+		emailService.sendSignUpEmail(user.getEmail());
+		emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 	}
 
 	@Override
@@ -119,46 +190,9 @@ public class UsersServiceImplementation implements IUsersService{
 	}
 
 	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public Tokens registerToken(Users user) throws Exception {
-		cleanTokens(user);
+	public void toggleVerifyUser(Users user) throws Exception {
+		user.setVerified(true);
 		
-		String tokenString = jwtTools.generateToken(user);
-		Tokens token = new Tokens(tokenString, user);
-		
-		tokenRepository.save(token);
-		
-		return token;
-	}
-
-	@Override
-	public Boolean isTokenValid(Users user, String token) {
-		try {
-			cleanTokens(user);
-			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
-			
-			tokens.stream()
-				.filter(tk -> tk.getContent().equals(token))
-				.findAny()
-				.orElseThrow(() -> new Exception());
-			
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}	
-	}
-
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public void cleanTokens(Users user) throws Exception {
-		List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
-		
-		tokens.forEach(token -> {
-			if(!jwtTools.verifyToken(token.getContent())) {
-				token.setActive(false);
-				tokenRepository.save(token);
-			}
-		});
+		usersRepository.save(user);
 	}
 }

@@ -18,6 +18,7 @@ import com.proyecto.ticketplus.models.dtos.users.SignInGoogleDTO;
 import com.proyecto.ticketplus.models.dtos.users.SignInPasswordDTO;
 import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
+import com.proyecto.ticketplus.services.IEmailService;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.RequestErrorHandler;
 
@@ -32,6 +33,9 @@ public class AuthController {
 	
 	@Autowired
 	private RequestErrorHandler errorHandler;
+	
+	@Autowired
+	private IEmailService emailService;
 	
 	//GET
 	
@@ -54,9 +58,9 @@ public class AuthController {
 		Users user = userService.findOneByEmail(email);
 		
 		if (!user.getVerified()) {
-			//TODO send email to activate account
+			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
-			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.CONFLICT);
 		}
 		
 		if (!user.getActive()) {
@@ -87,13 +91,13 @@ public class AuthController {
 		}
 		
 		if (!user.getVerified()) {
-			//TODO send email to activate account
+			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
-			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.CONFLICT);
 		}
 		
 		if (!user.getActive()) {
-			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.UNAUTHORIZED);
 		}
 		
 		if (user.getPassword() == null) {
@@ -136,9 +140,9 @@ public class AuthController {
 		}
 		
 		if (!user.getVerified()) {
-			//TODO send email to activate account
+			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
-			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verify your account first"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verify your account first"), HttpStatus.CONFLICT);
 		}
 		
 		if (user.getPassword() != null) {

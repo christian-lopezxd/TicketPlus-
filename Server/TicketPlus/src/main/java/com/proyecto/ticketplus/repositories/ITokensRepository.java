@@ -10,4 +10,5 @@ import com.proyecto.ticketplus.models.entities.Users;
 
 public interface ITokensRepository extends ListCrudRepository<Tokens, UUID> {
 	List<Tokens> findByUserAndActive(Users user, Boolean active);
+	List<Tokens> findByActive(Boolean active);
 }
