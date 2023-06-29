@@ -95,4 +95,16 @@ public class EmailServiceImplementation implements IEmailService {
 		sendSimpleMail(emailDetails);
 	}
 
+	@Override
+	public void sendDeactivationEmail(String email, String reason) {
+		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
+				email,
+				"Account deactivated",
+				"Your account at TicketPlus+ has been deactivated by an administrator; reason: " + reason,
+				null
+				);
+		
+		sendSimpleMail(emailDetails);
+	}
+
 }
