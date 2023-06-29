@@ -46,6 +46,82 @@ public class UsersServiceImplementation implements IUsersService{
 	@Autowired
 	private IEmailService emailService;
 	
+	//General
+	@Override
+	public Users findOneByEmail(String email) {
+		Users user = usersRepository.findOneByEmail(email);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user;
+	}
+	
+	@Override
+	public Users findOneByUUID(UUID idUser) {
+		Users user = usersRepository.findOneByIdUser(idUser);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user;
+	}
+	
+	//Token management
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public Tokens registerToken(Users user) throws Exception {
+		cleanTokens(user);
+		
+		String tokenString = jwtTools.generateToken(user);
+		Tokens token = new Tokens(tokenString, user);
+		
+		tokenRepository.save(token);
+		
+		return token;
+	}
+	
+	@Override
+	public Boolean isTokenValid(Users user, String token) {
+		try {
+			cleanTokens(user);
+			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
+			
+			tokens.stream()
+				.filter(tk -> tk.getContent().equals(token))
+				.findAny()
+				.orElseThrow(() -> new Exception());
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void cleanTokens(Users user) throws Exception {
+		List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
+		
+		tokens.forEach(token -> {
+			if(!jwtTools.verifyToken(token.getContent())) {
+				token.setActive(false);
+				tokenRepository.save(token);
+			}
+		});
+	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void cleanTokens() throws Exception {
+		List<Tokens> tokens = tokenRepository.findByActive(false);
+		tokenRepository.deleteAll(tokens);
+	}
+	
+	//Auth
 	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void createUserGoogle(NewUserDTO newUserGoogle) throws Exception {
@@ -63,7 +139,7 @@ public class UsersServiceImplementation implements IUsersService{
 			emailService.sendCreationEmail(newUser.getEmail());
 		}
 	}
-
+	
 	@Override
 	public String verifyIdTokenGoogle(String idToken) {
 		NetHttpTransport transport = new NetHttpTransport();
@@ -97,17 +173,6 @@ public class UsersServiceImplementation implements IUsersService{
 	}
 	
 	@Override
-	public Users findOneByEmail(String email) {
-		Users user = usersRepository.findOneByEmail(email);
-		
-		if (user == null) {
-			return null;
-		}
-		
-		return user;
-	}
-
-	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void signUpPassword(Users user, ChangePasswordDTO data) throws Exception {
 		user.setVerified(false);
@@ -122,68 +187,6 @@ public class UsersServiceImplementation implements IUsersService{
 	@Override
 	public Boolean comparePassword(String toCompare, String current) {
 		return passwordEncoder.matches(toCompare, current);
-	}
-
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public Tokens registerToken(Users user) throws Exception {
-		cleanTokens(user);
-		
-		String tokenString = jwtTools.generateToken(user);
-		Tokens token = new Tokens(tokenString, user);
-		
-		tokenRepository.save(token);
-		
-		return token;
-	}
-
-	@Override
-	public Boolean isTokenValid(Users user, String token) {
-		try {
-			cleanTokens(user);
-			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
-			
-			tokens.stream()
-				.filter(tk -> tk.getContent().equals(token))
-				.findAny()
-				.orElseThrow(() -> new Exception());
-			
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}	
-	}
-
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public void cleanTokens(Users user) throws Exception {
-		List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
-		
-		tokens.forEach(token -> {
-			if(!jwtTools.verifyToken(token.getContent())) {
-				token.setActive(false);
-				tokenRepository.save(token);
-			}
-		});
-	}
-	
-	@Override
-	@Transactional(rollbackOn = Exception.class)
-	public void cleanTokens() throws Exception {
-		List<Tokens> tokens = tokenRepository.findByActive(false);
-		tokenRepository.deleteAll(tokens);
-	}
-
-	@Override
-	public Users findOneByUUID(UUID idUser) {
-		Users user = usersRepository.findOneByIdUser(idUser);
-		
-		if (user == null) {
-			return null;
-		}
-		
-		return user;
 	}
 
 	@Override
