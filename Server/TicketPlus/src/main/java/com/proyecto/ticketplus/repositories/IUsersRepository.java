@@ -8,4 +8,5 @@ import com.proyecto.ticketplus.models.entities.Users;
 
 public interface IUsersRepository extends ListCrudRepository<Users, UUID> {
 	Users findOneByEmail(String email);
+	Users findOneByIdUser(UUID idUser);
 }

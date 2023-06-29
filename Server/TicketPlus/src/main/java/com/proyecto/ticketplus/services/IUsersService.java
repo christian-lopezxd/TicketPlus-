@@ -1,5 +1,7 @@
 package com.proyecto.ticketplus.services;
 
+import java.util.UUID;
+
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
 import com.proyecto.ticketplus.models.dtos.users.NewUserDTO;
 import com.proyecto.ticketplus.models.entities.Tokens;
@@ -8,6 +10,7 @@ import com.proyecto.ticketplus.models.entities.Users;
 public interface IUsersService {
 	//General
 	Users findOneByEmail(String email);
+	Users findOneByUUID(UUID idUser);
 	
 	//Token management
 	Tokens registerToken(Users user) throws Exception;
@@ -20,4 +23,5 @@ public interface IUsersService {
 	String verifyIdTokenGoogle(String idToken);
 	void signUpPassword(Users user, ChangePasswordDTO data) throws Exception;
 	Boolean comparePassword(String toCompare, String current);
+	void toggleVerifyUser(Users user) throws Exception;
 }

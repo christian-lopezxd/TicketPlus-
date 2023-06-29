@@ -2,6 +2,7 @@ package com.proyecto.ticketplus.services.implementations;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -171,5 +172,23 @@ public class UsersServiceImplementation implements IUsersService{
 	public void cleanTokens() throws Exception {
 		List<Tokens> tokens = tokenRepository.findByActive(false);
 		tokenRepository.deleteAll(tokens);
+	}
+
+	@Override
+	public Users findOneByUUID(UUID idUser) {
+		Users user = usersRepository.findOneByIdUser(idUser);
+		
+		if (user == null) {
+			return null;
+		}
+		
+		return user;
+	}
+
+	@Override
+	public void toggleVerifyUser(Users user) throws Exception {
+		user.setVerified(true);
+		
+		usersRepository.save(user);
 	}
 }

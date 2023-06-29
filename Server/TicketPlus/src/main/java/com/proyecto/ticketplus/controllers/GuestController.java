@@ -9,16 +9,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.EmailDetailsDTO;
+import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.services.IEmailService;
 import com.proyecto.ticketplus.services.IUsersService;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/guest")
@@ -44,21 +42,34 @@ public class GuestController {
 		
 		emailService.sendSimpleMail(emailDetails);
 		
-		return new ResponseEntity<>("llega", HttpStatus.OK);
-	}
-	
-	@GetMapping("/user/toggle-active/{idUser}")
-	public ResponseEntity<?> changeUserStatus(@PathVariable("idUser") UUID idUser) {
-		
-		
-		return new ResponseEntity<>("User activated", HttpStatus.OK);
+		return new ResponseEntity<>(new MessageDTO("llega"), HttpStatus.OK);
 	}
 	
 	//PATCH
 	
-	@PatchMapping("/user/toggle-active/{idUser}")
-	public ResponseEntity<?> changeUserStatus(@Valid @RequestBody String data) {
-		// TODO activate user and send email confirming user account activation
-		return null;
+	@PatchMapping("/user/toggle-verify/{idUser}")
+	public ResponseEntity<?> changeUserStatus(@PathVariable("idUser") UUID idUser) {
+		Users user = userService.findOneByUUID(idUser);
+		
+		if (user == null) {
+			return new ResponseEntity<>(new MessageDTO("User do not exits!"), HttpStatus.NOT_FOUND);
+		}
+		
+		if (user.getVerified()) {
+			return new ResponseEntity<>(new MessageDTO("User account already verified!"), HttpStatus.CONFLICT);
+		}
+		
+		if (!user.getActive()) {
+			return new ResponseEntity<>(new MessageDTO("User account deactivated! Make sure to contact an administrator"), HttpStatus.UNAUTHORIZED);
+		}
+		
+		try {
+			userService.toggleVerifyUser(user);
+			
+			return new ResponseEntity<>(new MessageDTO("User account verified successfully"), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>("Internal server error", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 }
