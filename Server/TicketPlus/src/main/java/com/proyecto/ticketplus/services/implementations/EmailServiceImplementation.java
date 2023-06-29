@@ -1,6 +1,10 @@
 package com.proyecto.ticketplus.services.implementations;
 
 import java.io.File;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,6 +105,36 @@ public class EmailServiceImplementation implements IEmailService {
 				email,
 				"Account deactivated",
 				"Your account at TicketPlus+ has been deactivated by an administrator; reason: " + reason,
+				null
+				);
+		
+		sendSimpleMail(emailDetails);
+	}
+
+	@Override
+	public void sendSignUpEmail(String email) {
+		LocalDate localDate = LocalDate.now();
+		String localTime = LocalTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME);;
+		
+		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
+				email,
+				"Account changes made",
+				"Your account at TicketPlus+ has been unverified because you updated your account on " + localDate + " at " + localTime + " to sign in with password. If it was not you, please contect an administrator",
+				null
+				);
+		
+		sendSimpleMail(emailDetails);
+	}
+
+	@Override
+	public void sendChangePasswordEmail(String email) {
+		LocalDate localDate = LocalDate.now();
+		String localTime = LocalTime.now().truncatedTo(ChronoUnit.SECONDS).format(DateTimeFormatter.ISO_LOCAL_TIME);;
+		
+		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
+				email,
+				"Account password changed",
+				"Your account at TicketPlus+ has been unverified because you updated your account password on " + localDate + " at " + localTime + ". If it was not you, please contect an administrator",
 				null
 				);
 		

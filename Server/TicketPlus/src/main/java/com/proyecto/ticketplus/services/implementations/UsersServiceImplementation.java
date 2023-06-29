@@ -115,7 +115,8 @@ public class UsersServiceImplementation implements IUsersService{
 		
 		usersRepository.save(user);
 		
-		//TODO send email to confirm login with password activation 
+		emailService.sendSignUpEmail(user.getEmail());
+		emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 	}
 
 	@Override

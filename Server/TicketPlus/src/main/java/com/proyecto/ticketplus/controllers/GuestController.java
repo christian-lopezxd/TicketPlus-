@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.ticketplus.models.dtos.response.EmailDetailsDTO;
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.services.IEmailService;
@@ -30,17 +29,15 @@ public class GuestController {
 	//GET
 	
 	@GetMapping("/prueba/{code}")
-	private ResponseEntity<?> prueba(@PathVariable("code") String code) {
-		Users user = userService.findOneByEmail(code);
+	private ResponseEntity<?> prueba(@PathVariable("code") UUID code) {
+		Users user = userService.findOneByUUID(code);
 		
-		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
-				user.getEmail(),
-				"Prueba ",
-				"email con imagen",
-				"logo.png"
-				);
+		if (user == null) {
+			return new ResponseEntity<>(new MessageDTO("User do not exits!"), HttpStatus.NOT_FOUND);
+		}
 		
-		emailService.sendSimpleMail(emailDetails);
+		emailService.sendDeactivationEmail(user.getEmail(), "Falsificación de entradas");
+		emailService.sendChangePasswordEmail(user.getEmail());
 		
 		return new ResponseEntity<>(new MessageDTO("llega"), HttpStatus.OK);
 	}

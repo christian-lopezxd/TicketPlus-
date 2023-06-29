@@ -13,6 +13,6 @@ public interface IEmailService {
     void sendCreationEmail(String email);
     void sendVerificationEmail(String email, UUID idUser);
     void sendDeactivationEmail(String email, String reason);
-    //void sendSignUpEmail(String email);
-    //void sendChangePasswordEmail(String email);
+    void sendSignUpEmail(String email);
+    void sendChangePasswordEmail(String email);
 }
