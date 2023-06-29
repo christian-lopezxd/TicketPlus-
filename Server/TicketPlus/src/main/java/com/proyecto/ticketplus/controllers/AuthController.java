@@ -58,9 +58,9 @@ public class AuthController {
 		Users user = userService.findOneByEmail(email);
 		
 		if (!user.getVerified()) {
-			//TODO send email to activate account
+			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
-			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.CONFLICT);
 		}
 		
 		if (!user.getActive()) {
@@ -91,9 +91,9 @@ public class AuthController {
 		}
 		
 		if (!user.getVerified()) {
-			//TODO send email to activate account
+			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
-			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verified your account first, check your email"), HttpStatus.CONFLICT);
 		}
 		
 		if (!user.getActive()) {
@@ -140,9 +140,9 @@ public class AuthController {
 		}
 		
 		if (!user.getVerified()) {
-			//TODO send email to activate account
+			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
-			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verify your account first"), HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(new MessageDTO("User account not verified! Make sure to verify your account first"), HttpStatus.CONFLICT);
 		}
 		
 		if (user.getPassword() != null) {

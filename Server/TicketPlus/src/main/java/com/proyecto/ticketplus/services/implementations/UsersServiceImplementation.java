@@ -60,7 +60,6 @@ public class UsersServiceImplementation implements IUsersService{
 			usersRepository.save(newUser);
 			
 			emailService.sendCreationEmail(newUser.getEmail());
-			//TODO send email to confirm login with password activation
 		}
 	}
 

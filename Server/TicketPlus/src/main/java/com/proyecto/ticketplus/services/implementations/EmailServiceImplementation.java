@@ -1,6 +1,7 @@
 package com.proyecto.ticketplus.services.implementations;
 
 import java.io.File;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,9 @@ public class EmailServiceImplementation implements IEmailService {
 	 
     @Value("${spring.mail.username}")
     private String sender;
+    
+    @Value("${verify.frontend.url}")
+    private String frontendVerifyUrl;
 
 	@Override
 	public void sendSimpleMail(EmailDetailsDTO details) {
@@ -73,6 +77,18 @@ public class EmailServiceImplementation implements IEmailService {
 				email,
 				"Welcome to TicketPlus+",
 				"Thanks for joining our server!",
+				null
+				);
+		
+		sendSimpleMail(emailDetails);
+	}
+
+	@Override
+	public void sendVerificationEmail(String email, UUID idUser) {
+		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
+				email,
+				"Verify your account",
+				"Please verify your user account before you can access TicketPlus+ at: " + frontendVerifyUrl + idUser,
 				null
 				);
 		

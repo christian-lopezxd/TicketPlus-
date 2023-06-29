@@ -1,5 +1,7 @@
 package com.proyecto.ticketplus.controllers;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,9 +47,16 @@ public class GuestController {
 		return new ResponseEntity<>("llega", HttpStatus.OK);
 	}
 	
+	@GetMapping("/user/toggle-active/{idUser}")
+	public ResponseEntity<?> changeUserStatus(@PathVariable("idUser") UUID idUser) {
+		
+		
+		return new ResponseEntity<>("User activated", HttpStatus.OK);
+	}
+	
 	//PATCH
 	
-	@PatchMapping("/user/toggle-active")
+	@PatchMapping("/user/toggle-active/{idUser}")
 	public ResponseEntity<?> changeUserStatus(@Valid @RequestBody String data) {
 		// TODO activate user and send email confirming user account activation
 		return null;
