@@ -19,6 +19,7 @@ import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.repositories.ITokensRepository;
 import com.proyecto.ticketplus.repositories.IUsersRepository;
+import com.proyecto.ticketplus.services.IEmailService;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.JWTTools;
 
@@ -41,6 +42,9 @@ public class UsersServiceImplementation implements IUsersService{
 	@Autowired
 	private ITokensRepository tokenRepository;
 	
+	@Autowired
+	private IEmailService emailService;
+	
 	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void createUserGoogle(NewUserDTO newUserGoogle) throws Exception {
@@ -55,6 +59,7 @@ public class UsersServiceImplementation implements IUsersService{
 			
 			usersRepository.save(newUser);
 			
+			emailService.sendCreationEmail(newUser.getEmail());
 			//TODO send email to confirm login with password activation
 		}
 	}

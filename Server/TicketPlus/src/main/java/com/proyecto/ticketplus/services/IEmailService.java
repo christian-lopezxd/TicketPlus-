@@ -8,9 +8,9 @@ public interface IEmailService {
 	void sendMailWithAttachment(EmailDetailsDTO details);
     
     //Custom email
-    //void sendCreationEmail();
-    //void sendVerificationEmail();
-    //void sendDeactivationEmail();
-    //void sendSignUpEmail();
-    //void sendChangePasswordEmail();
+    void sendCreationEmail(String email);
+    //void sendVerificationEmail(String email);
+    //void sendDeactivationEmail(String email);
+    //void sendSignUpEmail(String email);
+    //void sendChangePasswordEmail(String email);
 }

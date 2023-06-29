@@ -67,4 +67,16 @@ public class EmailServiceImplementation implements IEmailService {
         }
 	}
 
+	@Override
+	public void sendCreationEmail(String email) {
+		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
+				email,
+				"Welcome to TicketPlus+",
+				"Thanks for joining our server!",
+				null
+				);
+		
+		sendSimpleMail(emailDetails);
+	}
+
 }
