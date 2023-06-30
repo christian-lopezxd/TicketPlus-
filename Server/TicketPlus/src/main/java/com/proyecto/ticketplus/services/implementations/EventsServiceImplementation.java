@@ -44,22 +44,16 @@ public class EventsServiceImplementation implements IEventsService{
 	}
 
 	@Override
-	public byte[] downloadImageFromFileSystem(UUID idEvent, String type) throws Exception {
-		Events event = eventsRepository.findOneByidEvent(idEvent);
-		
-        if (type.equals("card")) {
-        	String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + event.getCardPicture();
-            
-            return Files.readAllBytes(new File(filePath).toPath());
-        }
-        
-        if (type.equals("banner")) {
-        	String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + event.getBannerPicture();
-        	
-        	return Files.readAllBytes(new File(filePath).toPath());
-        }
-        
-        return null;
+	public byte[] downloadImageFromFileSystem(String fileName) throws Exception {
+    	String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + fileName;
+    	
+    	File file = new File(filePath);
+    	
+    	if(file.exists() && !file.isDirectory()) { 
+    		return Files.readAllBytes(file.toPath());
+    	}
+    	
+		return null;
 	}
 
 	@Override
