@@ -17,6 +17,7 @@ import com.proyecto.ticketplus.models.entities.Places;
 import com.proyecto.ticketplus.repositories.IEventsRepository;
 import com.proyecto.ticketplus.services.IEventsService;
 
+import jakarta.activation.MimetypesFileTypeMap;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -25,35 +26,75 @@ public class EventsServiceImplementation implements IEventsService{
 	private IEventsRepository eventsRepository;
 	
 	@Override
-	public String uploadImageToFileSystem(MultipartFile file, String type) throws Exception {
-		UUID uuid = UUID.randomUUID();
-		String uuidAsString = uuid.toString();
-		String newFileName = type + uuidAsString + "." + FilenameUtils.getExtension(file.getOriginalFilename());
-		
-		String oldFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + file.getOriginalFilename();
-		String newFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + newFileName;
-		
-		File oldName = new File(oldFilePath);
-		File newName = new File(newFilePath);
-		
-		oldName.renameTo(newName);
-		
-		file.transferTo(newName);
-		
-		return newFileName;
+	public boolean checkIfImage(MultipartFile fileCard, MultipartFile fileBanner) {
+		try {
+			String cardFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + fileCard.getOriginalFilename();
+			File cardFile = new File(cardFilePath);
+			
+			String cardMimeType= new MimetypesFileTypeMap().getContentType(cardFile);
+	        String cardType = cardMimeType.split("/")[0];
+			
+			String bannerFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + fileBanner.getOriginalFilename();
+	        File bannerFile = new File(bannerFilePath);
+	        
+	        String bannerMimeType= new MimetypesFileTypeMap().getContentType(bannerFile);
+	        String bannerType = bannerMimeType.split("/")[0];
+	        
+	        if(!cardType.equals("image")) {
+	        	return false;
+	        }
+	        
+	        if(!bannerType.equals("image")) {
+	        	return false;
+	        }
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public String uploadImageToFileSystem(MultipartFile file, String type) {
+		try {
+			UUID uuid = UUID.randomUUID();
+			String uuidAsString = uuid.toString();
+			String newFileName = type + uuidAsString + "." + FilenameUtils.getExtension(file.getOriginalFilename());
+			
+			String oldFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + file.getOriginalFilename();
+			File oldName = new File(oldFilePath);
+			
+			String newFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + newFileName;
+			File newName = new File(newFilePath);
+			
+			oldName.renameTo(newName);
+			
+			file.transferTo(newName);
+			
+			return newFileName;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
-	public byte[] downloadImageFromFileSystem(String fileName) throws Exception {
-    	String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + fileName;
-    	
-    	File file = new File(filePath);
-    	
-    	if(file.exists() && !file.isDirectory()) { 
-    		return Files.readAllBytes(file.toPath());
-    	}
-    	
-		return null;
+	public byte[] downloadImageFromFileSystem(String fileName) {
+		try {
+			String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + fileName;
+	    	
+	    	File file = new File(filePath);
+	    	
+	    	if(file.exists() && !file.isDirectory()) { 
+	    		return Files.readAllBytes(file.toPath());
+	    	}
+	    	
+	    	return null;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

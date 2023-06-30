@@ -7,7 +7,8 @@ import com.proyecto.ticketplus.models.entities.EventCategories;
 import com.proyecto.ticketplus.models.entities.Places;
 
 public interface IEventsService {
-	String uploadImageToFileSystem(MultipartFile file, String type) throws Exception;
-	byte[] downloadImageFromFileSystem(String fileName) throws Exception;
+	boolean checkIfImage(MultipartFile fileCard, MultipartFile fileBanner);
+	String uploadImageToFileSystem(MultipartFile file, String type);
+	byte[] downloadImageFromFileSystem(String fileName);
 	void registerEvent(CreateEventDTO event, EventCategories eventCatergory, Places place) throws Exception;;
 }

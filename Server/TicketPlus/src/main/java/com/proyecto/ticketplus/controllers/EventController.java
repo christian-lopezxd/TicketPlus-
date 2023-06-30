@@ -62,6 +62,12 @@ public class EventController {
 		}
 		
 		try {
+			boolean isImage = eventService.checkIfImage(data.getCardPicture(), data.getBannerPicture());
+			
+			if (!isImage) {
+				return new ResponseEntity<>(new MessageDTO("File uploaded it is not an image, try again"), HttpStatus.BAD_REQUEST);
+			}
+			
 			eventService.registerEvent(data, eventCatergory, place);
 			
 			return new ResponseEntity<>(new MessageDTO("Event created successfully"), HttpStatus.OK);
