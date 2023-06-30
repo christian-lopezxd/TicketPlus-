@@ -67,7 +67,7 @@ public class EventController {
 			return new ResponseEntity<>(new MessageDTO("Event created successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

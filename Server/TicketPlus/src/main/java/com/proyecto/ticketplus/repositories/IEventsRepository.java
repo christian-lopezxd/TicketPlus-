@@ -7,5 +7,5 @@ import org.springframework.data.repository.ListCrudRepository;
 import com.proyecto.ticketplus.models.entities.Events;
 
 public interface IEventsRepository extends ListCrudRepository<Events, UUID> {
-
+	Events findOneByidEvent(UUID idEvent);
 }

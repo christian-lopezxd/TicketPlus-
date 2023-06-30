@@ -1,6 +1,7 @@
 package com.proyecto.ticketplus.services.implementations;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.UUID;
 
 import org.apache.commons.io.FilenameUtils;
@@ -43,9 +44,22 @@ public class EventsServiceImplementation implements IEventsService{
 	}
 
 	@Override
-	public byte[] downloadImageFromFileSystem(String fileName) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public byte[] downloadImageFromFileSystem(UUID idEvent, String type) throws Exception {
+		Events event = eventsRepository.findOneByidEvent(idEvent);
+		
+        if (type.equals("card")) {
+        	String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + event.getCardPicture();
+            
+            return Files.readAllBytes(new File(filePath).toPath());
+        }
+        
+        if (type.equals("banner")) {
+        	String filePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + event.getBannerPicture();
+        	
+        	return Files.readAllBytes(new File(filePath).toPath());
+        }
+        
+        return null;
 	}
 
 	@Override
