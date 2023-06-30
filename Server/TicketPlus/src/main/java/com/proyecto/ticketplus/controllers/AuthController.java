@@ -32,10 +32,10 @@ public class AuthController {
 	private IUsersService userService;
 	
 	@Autowired
-	private RequestErrorHandler errorHandler;
+	private IEmailService emailService;
 	
 	@Autowired
-	private IEmailService emailService;
+	private RequestErrorHandler errorHandler;
 	
 	//GET
 	
@@ -71,6 +71,7 @@ public class AuthController {
 		
 		try {
 			Tokens token = userService.registerToken(user);
+			
 			return new ResponseEntity<>(new TokenDTO(token), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -114,6 +115,7 @@ public class AuthController {
 		
 		try {
 			Tokens token = userService.registerToken(user);
+			
 			return new ResponseEntity<>(new TokenDTO(token), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();

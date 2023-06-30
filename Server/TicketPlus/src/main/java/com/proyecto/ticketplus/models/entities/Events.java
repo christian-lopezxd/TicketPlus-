@@ -60,10 +60,10 @@ public class Events {
 	@Column(name = "banner_picture")
 	private String bannerPicture;
 	
-	@Column(name = "active")
+	@Column(name = "active", insertable = false)
 	private boolean active;
 	
-	@Column(name = "archived")
+	@Column(name = "archived", insertable = false)
 	private boolean archived;
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
@@ -78,7 +78,7 @@ public class Events {
 	@JsonIgnore
 	private List<EventsSponsor> eventsSponsor;
 
-	public Events(EventCategories eventCategory, Places place, String title, Date startDate, Date endDate, Date qrScanStartTime, String description, String cardPicture, String bannerPicture, boolean active, boolean archived) {
+	public Events(EventCategories eventCategory, Places place, String title, Date startDate, Date endDate, Date qrScanStartTime, String description, String cardPicture, String bannerPicture) {
 		super();
 		this.eventCategory = eventCategory;
 		this.place = place;
@@ -89,7 +89,5 @@ public class Events {
 		this.description = description;
 		this.cardPicture = cardPicture;
 		this.bannerPicture = bannerPicture;
-		this.active = active;
-		this.archived = archived;
 	}
 }

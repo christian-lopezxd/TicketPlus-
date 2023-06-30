@@ -35,16 +35,16 @@ public class UsersServiceImplementation implements IUsersService{
 	private  IUsersRepository usersRepository;
 	
 	@Autowired
-	public PasswordEncoder passwordEncoder;
-	
-	@Autowired
-	private JWTTools jwtTools;
-	
-	@Autowired
 	private ITokensRepository tokenRepository;
 	
 	@Autowired
 	private IEmailService emailService;
+	
+	@Autowired
+	public PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JWTTools jwtTools;
 	
 	//General
 	@Override
