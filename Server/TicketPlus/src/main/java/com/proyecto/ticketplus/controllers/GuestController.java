@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
-import com.proyecto.ticketplus.models.dtos.response.PageDTO;
+import com.proyecto.ticketplus.models.dtos.response.PageListDTO;
 import com.proyecto.ticketplus.models.dtos.response.SendImageDTO;
 import com.proyecto.ticketplus.models.entities.Events;
 import com.proyecto.ticketplus.models.entities.Users;
@@ -52,7 +52,7 @@ public class GuestController {
 	
 	@GetMapping("/event/get-all-active")
 	private ResponseEntity<?> getEvents(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
-		PageDTO<Events> events = eventService.getAllActiveEvents(page, size);
+		PageListDTO<Events> events = eventService.getAllActiveEvents(page, size);
 		
 		return new ResponseEntity<>(events, HttpStatus.OK);
 	}

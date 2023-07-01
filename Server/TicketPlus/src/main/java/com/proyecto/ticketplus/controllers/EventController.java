@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.events.CreateEventDTO;
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
-import com.proyecto.ticketplus.models.dtos.response.PageDTO;
+import com.proyecto.ticketplus.models.dtos.response.PageListDTO;
+import com.proyecto.ticketplus.models.dtos.response.PageObjectDTO;
 import com.proyecto.ticketplus.models.dtos.tiers.CreateTierDTO;
+import com.proyecto.ticketplus.models.dtos.tiers.TiersEventDTO;
 import com.proyecto.ticketplus.models.entities.EventCategories;
 import com.proyecto.ticketplus.models.entities.Events;
 import com.proyecto.ticketplus.models.entities.Places;
@@ -54,11 +56,23 @@ public class EventController {
 	
 	@GetMapping("/get-all")
 	private ResponseEntity<?> getEvents(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
-		PageDTO<Events> events = eventService.getAllEvents(page, size);
+		PageListDTO<Events> events = eventService.getAllEvents(page, size);
 		
 		return new ResponseEntity<>(events, HttpStatus.OK);
 	}
 	
+	@GetMapping("/get-tiers/{idEvent}")
+	private ResponseEntity<?> getEventTiers(@PathVariable("idEvent") UUID idEvent, @RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
+		Events event = eventService.findOneByidEvent(idEvent);
+		
+		if (event == null) {
+			return new ResponseEntity<>(new MessageDTO("Event not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		PageObjectDTO<TiersEventDTO> tiers = tiersService.getAllActiveEvents(event, page, size);
+		
+		return new ResponseEntity<>(tiers, HttpStatus.OK);
+	}
 	
 	//POST
 	

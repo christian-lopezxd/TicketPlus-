@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proyecto.ticketplus.models.dtos.events.CreateEventDTO;
-import com.proyecto.ticketplus.models.dtos.response.PageDTO;
+import com.proyecto.ticketplus.models.dtos.response.PageListDTO;
 import com.proyecto.ticketplus.models.entities.EventCategories;
 import com.proyecto.ticketplus.models.entities.Events;
 import com.proyecto.ticketplus.models.entities.Places;
@@ -141,8 +141,8 @@ public class EventsServiceImplementation implements IEventsService{
 	}
 	
 	@Override
-	public PageDTO<Events> generatePageable(Page<Events> events) {
-		PageDTO<Events> eventsPageable = new PageDTO<>(
+	public PageListDTO<Events> generatePageable(Page<Events> events) {
+		PageListDTO<Events> eventsPageable = new PageListDTO<>(
 				events.getContent(),
 				events.getNumber(),
 				events.getSize(),
@@ -154,21 +154,21 @@ public class EventsServiceImplementation implements IEventsService{
 	}
 
 	@Override
-	public PageDTO<Events> getAllActiveEvents(int page, int size) {
+	public PageListDTO<Events> getAllActiveEvents(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("startDate").ascending());
 		Page<Events> events = eventsRepository.findAllByActive(true, pageable);
 
-		PageDTO<Events> eventsPageable = generatePageable(events);
+		PageListDTO<Events> eventsPageable = generatePageable(events);
 		
 		return eventsPageable;
 	}
 
 	@Override
-	public PageDTO<Events> getAllEvents(int page, int size) {
+	public PageListDTO<Events> getAllEvents(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("startDate").ascending());
 		Page<Events> events = eventsRepository.findAll(pageable);
 
-		PageDTO<Events> eventsPageable = generatePageable(events);
+		PageListDTO<Events> eventsPageable = generatePageable(events);
 		
 		return eventsPageable;
 	}

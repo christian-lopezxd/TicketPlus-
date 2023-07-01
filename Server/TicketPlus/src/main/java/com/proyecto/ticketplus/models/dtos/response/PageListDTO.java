@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PageDTO<T> {
+public class PageListDTO<T> {
 	private List<T> content;
     private int page;
     private int size;
