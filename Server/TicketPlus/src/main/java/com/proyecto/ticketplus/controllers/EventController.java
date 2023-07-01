@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.events.CreateEventDTO;
+import com.proyecto.ticketplus.models.dtos.events.UpdateEventDTO;
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
 import com.proyecto.ticketplus.models.dtos.response.PageListDTO;
 import com.proyecto.ticketplus.models.dtos.response.PageObjectDTO;
@@ -140,7 +142,68 @@ public class EventController {
 	
 	//PUT
 	
-	
+	@PutMapping("/update/{idEvent}")
+	private ResponseEntity<?> eventUpdate(@PathVariable("idEvent") UUID idEvent, @ModelAttribute UpdateEventDTO data) {
+		Events event = eventService.findOneByidEvent(idEvent);
+		EventCategories eventCatergory;
+		Places place;
+		
+		if (event == null) {
+			return new ResponseEntity<>(new MessageDTO("Event not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		if (data.getEventCategory() != null) {
+			eventCatergory = eventCategoriesService.findEventCategoryByUUID(data.getEventCategory());
+			
+			if (eventCatergory == null) {
+				return new ResponseEntity<>(new MessageDTO("Event category not found"), HttpStatus.NOT_FOUND);
+			}
+		} else {
+			eventCatergory = eventCategoriesService.findEventCategoryByUUID(event.getEventCategory().getIdEventCategory());
+		}
+		
+		if (data.getPlace() != null) {
+			place = placesService.findPlaceByUUID(data.getPlace());
+			
+			if (place == null) {
+				return new ResponseEntity<>(new MessageDTO("Place not found"), HttpStatus.NOT_FOUND);
+			}
+		} else {
+			place = placesService.findPlaceByUUID(event.getPlace().getIdPlace());
+		}
+		
+		try {
+			if (data.getCardPicture() != null) {
+				boolean isImage = eventService.checkIfImage(data.getCardPicture());
+				
+				if (!isImage) {
+					return new ResponseEntity<>(new MessageDTO("File uploaded it is not an image, try again"), HttpStatus.BAD_REQUEST);
+				}
+			}
+			
+			if (data.getBannerPicture() != null) {
+				boolean isImage = eventService.checkIfImage(data.getBannerPicture());
+				
+				if (!isImage) {
+					return new ResponseEntity<>(new MessageDTO("File uploaded it is not an image, try again"), HttpStatus.BAD_REQUEST);
+				}
+			}
+			
+			System.out.println(eventCatergory);
+			System.out.println(place);
+			
+			eventService.updateEvent(data, event, eventCatergory, place);
+			
+			if (event.getActive()) {
+				return new ResponseEntity<>(new MessageDTO("Event updated successfully"), HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(new MessageDTO("Event updated successfully, add a Tier to activate it"), HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	//PATCH
 	

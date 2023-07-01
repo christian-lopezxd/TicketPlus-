@@ -1,6 +1,7 @@
 package com.proyecto.ticketplus.services.implementations;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.UUID;
 
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proyecto.ticketplus.models.dtos.events.CreateEventDTO;
+import com.proyecto.ticketplus.models.dtos.events.UpdateEventDTO;
 import com.proyecto.ticketplus.models.dtos.response.PageListDTO;
 import com.proyecto.ticketplus.models.entities.EventCategories;
 import com.proyecto.ticketplus.models.entities.Events;
@@ -50,6 +52,26 @@ public class EventsServiceImplementation implements IEventsService{
 	        }
 	        
 	        if(!bannerType.equals("image")) {
+	        	return false;
+	        }
+			
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean checkIfImage(MultipartFile newFile) {
+		try {
+			String newFilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + newFile.getOriginalFilename();
+			File newFile1 = new File(newFilePath);
+			
+			String newMimeType= new MimetypesFileTypeMap().getContentType(newFile1);
+	        String newType = newMimeType.split("/")[0];
+	        
+	        if(!newType.equals("image")) {
 	        	return false;
 	        }
 			
@@ -101,6 +123,18 @@ public class EventsServiceImplementation implements IEventsService{
 			return null;
 		}
 	}
+	
+	@Override
+	public void deletingImageFromFileSystem(String fileName) {
+		try {
+			String FilePath = new PathResource("src/main/resources/static").getFile().getAbsolutePath() + File.separator + fileName;
+			
+			File file = new File(FilePath);
+			file.delete();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	@Transactional(rollbackOn = Exception.class)
@@ -121,6 +155,63 @@ public class EventsServiceImplementation implements IEventsService{
 				);
 		
 		eventsRepository.save(newEvent);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void updateEvent(UpdateEventDTO newEvent, Events oldEvent, EventCategories eventCatergory, Places place) throws Exception {
+		oldEvent.setEventCategory(eventCatergory);
+		oldEvent.setPlace(place);
+		
+		if (newEvent.getTitle() != null) {
+			oldEvent.setTitle(newEvent.getTitle());
+		} else {
+			oldEvent.setTitle(oldEvent.getTitle());
+		}
+		
+		if (newEvent.getStartDate() != null) {
+			oldEvent.setStartDate(newEvent.getStartDate());
+		} else {
+			oldEvent.setStartDate(oldEvent.getStartDate());
+		}
+		
+		if (newEvent.getEndDate() != null) {
+			oldEvent.setEndDate(newEvent.getEndDate());
+		} else {
+			oldEvent.setEndDate(oldEvent.getEndDate());
+		}
+		
+		if (newEvent.getQrScanStartTime() != null) {
+			oldEvent.setQrScanStartTime(newEvent.getQrScanStartTime());
+		} else {
+			oldEvent.setQrScanStartTime(oldEvent.getQrScanStartTime());
+		}
+		
+		if (newEvent.getDescription() != null) {
+			oldEvent.setDescription(newEvent.getDescription());
+		} else {
+			oldEvent.setDescription(oldEvent.getDescription());
+		}
+		
+		if (newEvent.getCardPicture() != null) {
+			String uploadImageCardPicture = uploadImageToFileSystem(newEvent.getCardPicture(), "card-");
+			deletingImageFromFileSystem(oldEvent.getCardPicture());
+			
+			oldEvent.setCardPicture(uploadImageCardPicture);
+		} else {
+			oldEvent.setCardPicture(oldEvent.getCardPicture());
+		}
+		
+		if (newEvent.getBannerPicture() != null) {
+			String uploadImageBannerPicture = uploadImageToFileSystem(newEvent.getBannerPicture(), "banner-");
+			deletingImageFromFileSystem(oldEvent.getBannerPicture());
+			
+			oldEvent.setBannerPicture(uploadImageBannerPicture);
+		} else {
+			oldEvent.setBannerPicture(oldEvent.getBannerPicture());
+		}
+		
+		eventsRepository.save(oldEvent);
 	}
 	
 	@Override
