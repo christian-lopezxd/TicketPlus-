@@ -32,10 +32,10 @@ public class AuthController {
 	private IUsersService userService;
 	
 	@Autowired
-	private RequestErrorHandler errorHandler;
+	private IEmailService emailService;
 	
 	@Autowired
-	private IEmailService emailService;
+	private RequestErrorHandler errorHandler;
 	
 	//GET
 	
@@ -71,10 +71,11 @@ public class AuthController {
 		
 		try {
 			Tokens token = userService.registerToken(user);
+			
 			return new ResponseEntity<>(new TokenDTO(token), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -114,10 +115,11 @@ public class AuthController {
 		
 		try {
 			Tokens token = userService.registerToken(user);
+			
 			return new ResponseEntity<>(new TokenDTO(token), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
@@ -159,7 +161,7 @@ public class AuthController {
 			return new ResponseEntity<>(new MessageDTO("User updated successfully! Check your email, make sure to reactivate your account"), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(new MessageDTO("Internal Server Error!"), HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new MessageDTO("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

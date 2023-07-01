@@ -1,5 +1,9 @@
 package com.proyecto.ticketplus.services;
 
-public interface IPlacesService {
+import java.util.UUID;
 
+import com.proyecto.ticketplus.models.entities.Places;
+
+public interface IPlacesService {
+	public Places findPlaceByUUID(UUID idPlace);
 }
