@@ -175,7 +175,7 @@ public class UsersServiceImplementation implements IUsersService{
 	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void signUpPassword(Users user, ChangePasswordDTO data) throws Exception {
-		user.setVerified(false);
+		toggleVerifyUser(user);
 		user.setPassword(passwordEncoder.encode(data.getNewPassword()));
 		
 		usersRepository.save(user);
@@ -191,7 +191,11 @@ public class UsersServiceImplementation implements IUsersService{
 
 	@Override
 	public void toggleVerifyUser(Users user) throws Exception {
-		user.setVerified(true);
+		if (!user.getVerified()) {
+			user.setVerified(true);
+		} else {
+			user.setVerified(false);
+		}
 		
 		usersRepository.save(user);
 	}

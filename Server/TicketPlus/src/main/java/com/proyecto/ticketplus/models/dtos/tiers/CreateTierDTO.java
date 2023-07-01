@@ -1,6 +1,8 @@
 package com.proyecto.ticketplus.models.dtos.tiers;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +14,9 @@ public class CreateTierDTO {
 	@NotEmpty(message = "Tier name required")
 	private String tier;
 	
-	@NotEmpty(message = "Tier price required")
+	@PositiveOrZero(message = "Tier price required, must be positive")
 	private double price;
 	
-	@NotEmpty(message = "Tier capacity (total people) required")
+	@Min(value = 1, message = "Tier capacity (total people) required, must be positive and greater than 1")
 	private int capacity;
 }

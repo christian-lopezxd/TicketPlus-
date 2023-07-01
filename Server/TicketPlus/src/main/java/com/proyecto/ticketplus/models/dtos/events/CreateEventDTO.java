@@ -15,22 +15,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateEventDTO {
-	@NotNull (message = "Event category UUID required")
+	@NotNull(message = "Event category UUID required")
 	private UUID eventCategory;
 	
-	@NotNull (message = "Place UUID required")
+	@NotNull(message = "Place UUID required")
 	private UUID place;
 	
 	@NotEmpty(message = "Title required")
 	private String title;
 	
-	@NotNull (message = "Event start date required")
+	@NotNull(message = "Event start date required")
 	private Date startDate;
 	
-	@NotNull (message = "Event end date required")
+	@NotNull(message = "Event end date required")
 	private Date endDate;
 	
-	@NotNull (message = "Event QR scan start time required")
+	@NotNull(message = "Event QR scan start time required")
 	private Date qrScanStartTime;
 	
 	@NotEmpty(message = "Event description required")
@@ -41,7 +41,4 @@ public class CreateEventDTO {
 	
 	@NotNull(message = "Event banner picture required")
 	private MultipartFile bannerPicture;
-	
-	//@NotEmpty(message = "Event tier/s required")
-	//private List<CreateTierDTO> tier;
 }

@@ -36,7 +36,7 @@ public class GuestController {
 		return new ResponseEntity<>(new MessageDTO("Reaching server!"), HttpStatus.OK);
 	}
 	
-	@GetMapping("/event-picture/{fileName}")
+	@GetMapping("/event/picture/{fileName}")
 	private ResponseEntity<?> getPicture(@PathVariable("fileName") String fileName) {
 		try {
 			

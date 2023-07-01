@@ -61,10 +61,10 @@ public class Events {
 	private String bannerPicture;
 	
 	@Column(name = "active", insertable = false)
-	private boolean active;
+	private Boolean active;
 	
 	@Column(name = "archived", insertable = false)
-	private boolean archived;
+	private Boolean archived;
 	
 	@OneToMany(mappedBy = "event", fetch = FetchType.LAZY)
 	@JsonIgnore

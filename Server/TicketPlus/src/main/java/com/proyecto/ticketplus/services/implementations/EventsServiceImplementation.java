@@ -117,4 +117,21 @@ public class EventsServiceImplementation implements IEventsService{
 		
 		eventsRepository.save(newEvent);
 	}
+
+	@Override
+	public Events findOneByidEvent(UUID idEvent) {
+		return eventsRepository.findOneByidEvent(idEvent);
+	}
+
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void toggleActiveEvent(Events event) throws Exception {
+		if (!event.getActive()) {
+			event.setActive(true);
+		} else {
+			event.setActive(false);
+		}
+		
+		eventsRepository.save(event);
+	}
 }
