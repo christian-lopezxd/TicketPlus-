@@ -2,6 +2,7 @@ package com.proyecto.ticketplus.services;
 
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.proyecto.ticketplus.models.dtos.events.CreateEventDTO;
@@ -14,6 +15,8 @@ public interface IEventsService {
 	String uploadImageToFileSystem(MultipartFile file, String type);
 	byte[] downloadImageFromFileSystem(String fileName);
 	void registerEvent(CreateEventDTO event, EventCategories eventCatergory, Places place) throws Exception;
-	Events findOneByidEvent(UUID idEvent);
 	void toggleActiveEvent(Events event) throws Exception;
+	Events findOneByidEvent(UUID idEvent);
+	Page<Events> getAllActiveEvents(int page, int size);
+	Page<Events> getAllEvents(int page, int size);
 }

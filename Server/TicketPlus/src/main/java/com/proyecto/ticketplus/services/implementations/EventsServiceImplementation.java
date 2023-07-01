@@ -7,6 +7,10 @@ import java.util.UUID;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.PathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -117,12 +121,7 @@ public class EventsServiceImplementation implements IEventsService{
 		
 		eventsRepository.save(newEvent);
 	}
-
-	@Override
-	public Events findOneByidEvent(UUID idEvent) {
-		return eventsRepository.findOneByidEvent(idEvent);
-	}
-
+	
 	@Override
 	@Transactional(rollbackOn = Exception.class)
 	public void toggleActiveEvent(Events event) throws Exception {
@@ -133,5 +132,24 @@ public class EventsServiceImplementation implements IEventsService{
 		}
 		
 		eventsRepository.save(event);
+	}
+
+	@Override
+	public Events findOneByidEvent(UUID idEvent) {
+		return eventsRepository.findOneByidEvent(idEvent);
+	}
+
+	@Override
+	public Page<Events> getAllActiveEvents(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("startDate").ascending());
+		
+		return eventsRepository.findAllByActive(true, pageable);
+	}
+
+	@Override
+	public Page<Events> getAllEvents(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by("startDate").ascending());
+		
+		return eventsRepository.findAll(pageable);
 	}
 }

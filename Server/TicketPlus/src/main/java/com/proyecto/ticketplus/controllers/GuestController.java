@@ -3,6 +3,7 @@ package com.proyecto.ticketplus.controllers;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
+import com.proyecto.ticketplus.models.dtos.response.PageDTO;
 import com.proyecto.ticketplus.models.dtos.response.SendImageDTO;
+import com.proyecto.ticketplus.models.entities.Events;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.services.IEventsService;
 import com.proyecto.ticketplus.services.IUsersService;
@@ -34,6 +38,32 @@ public class GuestController {
 	@GetMapping("/prueba")
 	private ResponseEntity<?> prueba() {
 		return new ResponseEntity<>(new MessageDTO("Reaching server!"), HttpStatus.OK);
+	}
+	
+	@GetMapping("/event/get-one/{idEvent}")
+	private ResponseEntity<?> getEvent(@PathVariable("idEvent") UUID idEvent) {
+		Events event = eventService.findOneByidEvent(idEvent);
+		
+		if (event == null) {
+			return new ResponseEntity<>(new MessageDTO("Event not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<>(event, HttpStatus.OK);
+	}
+	
+	@GetMapping("/event/get-all-active")
+	private ResponseEntity<?> getEvents(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
+		Page<Events> events = eventService.getAllActiveEvents(page, size);
+		
+		PageDTO<Events> eventsPageable = new PageDTO<>(
+				events.getContent(),
+				events.getNumber(),
+				events.getSize(),
+				events.getTotalElements(),
+				events.getTotalPages()
+				);
+		
+		return new ResponseEntity<>(eventsPageable, HttpStatus.OK);
 	}
 	
 	@GetMapping("/event/picture/{fileName}")
