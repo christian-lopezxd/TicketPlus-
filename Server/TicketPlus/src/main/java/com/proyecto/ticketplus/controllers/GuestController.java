@@ -40,16 +40,16 @@ public class GuestController {
 	private ResponseEntity<?> getPicture(@PathVariable("fileName") String fileName) {
 		try {
 			
-			byte[] imageData = eventService.downloadImageFromFileSystem(fileName);
+			SendImageDTO imageData = new SendImageDTO(eventService.downloadImageFromFileSystem(fileName));
 			
-			if (imageData == null) {
+			if (imageData.getImage() == null) {
 				return new ResponseEntity<>(new MessageDTO("Image not found"), HttpStatus.NOT_FOUND);
 			}
 			
 			HttpHeaders responseHeaders = new HttpHeaders();
 			responseHeaders.set("Content-Type", "image/png");
 			
-			return new ResponseEntity<>(new SendImageDTO(imageData), responseHeaders, HttpStatus.OK);
+			return new ResponseEntity<>(imageData.getImage(), responseHeaders, HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
