@@ -214,7 +214,7 @@ CREATE TABLE public.tokens (
 CREATE TABLE public.users_roles (
 	id_user_role uuid NOT NULL DEFAULT gen_random_uuid(),
 	id_user uuid NOT NULL,
-	id_role uuid NOT NULL DEFAULT gen_random_uuid(),
+	id_role uuid NOT NULL,
 	CONSTRAINT users_roles_pk_id PRIMARY KEY (id_user_role),
 	CONSTRAINT users_roles_fk_role FOREIGN KEY (id_role) REFERENCES public.roles(id_role) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT users_roles_fk_user FOREIGN KEY (id_user) REFERENCES public.users(id_user) ON DELETE RESTRICT ON UPDATE CASCADE

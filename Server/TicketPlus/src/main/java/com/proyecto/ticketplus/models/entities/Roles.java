@@ -29,14 +29,15 @@ public class Roles {
 	private UUID idRole;
 	
 	@Column(name = "rol")
-	private String Role;
+	private String roleName;
 	
 	@OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<UsersRoles> userRoles;
 
-	public Roles(String role) {
+	public Roles(String roleName) {
 		super();
-		Role = role;
+		this.roleName = roleName;
 	}
+	
 }

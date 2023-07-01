@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
 import com.proyecto.ticketplus.models.dtos.tokens.TokenDTO;
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
+import com.proyecto.ticketplus.models.dtos.users.NewUserPasswordDTO;
 import com.proyecto.ticketplus.models.dtos.users.SignInGoogleDTO;
 import com.proyecto.ticketplus.models.dtos.users.SignInPasswordDTO;
 import com.proyecto.ticketplus.models.entities.Tokens;
@@ -120,6 +121,28 @@ public class AuthController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@PostMapping("/sign-up/password")
+	private ResponseEntity<?> signUpUserPassword(@RequestBody @Valid NewUserPasswordDTO data, BindingResult validations) {
+		if (validations.hasErrors()) {
+			return new ResponseEntity<>(errorHandler.mapErrors(validations.getFieldErrors()), HttpStatus.BAD_REQUEST);
+		}
+		
+		Users user = userService.findOneByEmail(data.getEmail());
+		
+		if (user != null) {
+			return new ResponseEntity<>(new MessageDTO("User already registered! Use another email"), HttpStatus.CONFLICT);
+		}
+		
+		try {
+			userService.createUserPassword(data);
+			
+			return new ResponseEntity<>(new MessageDTO("User created successfully! Check your email, make sure to activate your account"), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new MessageDTO("Internal Server Error"), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	

@@ -1,5 +1,12 @@
 package com.proyecto.ticketplus.services;
 
-public interface IRolesService {
+import java.util.List;
+import java.util.UUID;
 
+import com.proyecto.ticketplus.models.entities.Roles;
+
+public interface IRolesService {
+	Roles findOneByidRole(UUID idRole);
+	Roles findOneByName(String role);
+	List<Roles> getAllRoles();
 }
