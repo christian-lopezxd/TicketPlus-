@@ -3,7 +3,6 @@ package com.proyecto.ticketplus.controllers;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,17 +52,9 @@ public class GuestController {
 	
 	@GetMapping("/event/get-all-active")
 	private ResponseEntity<?> getEvents(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
-		Page<Events> events = eventService.getAllActiveEvents(page, size);
+		PageDTO<Events> events = eventService.getAllActiveEvents(page, size);
 		
-		PageDTO<Events> eventsPageable = new PageDTO<>(
-				events.getContent(),
-				events.getNumber(),
-				events.getSize(),
-				events.getTotalElements(),
-				events.getTotalPages()
-				);
-		
-		return new ResponseEntity<>(eventsPageable, HttpStatus.OK);
+		return new ResponseEntity<>(events, HttpStatus.OK);
 	}
 	
 	@GetMapping("/event/picture/{fileName}")
