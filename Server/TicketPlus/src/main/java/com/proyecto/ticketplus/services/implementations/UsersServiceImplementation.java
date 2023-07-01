@@ -100,12 +100,16 @@ public class UsersServiceImplementation implements IUsersService{
 			cleanTokens(user);
 			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
 			
-			tokens.stream()
+			if (tokens.size() > 0) {
+				tokens.stream()
 				.filter(tk -> tk.getContent().equals(token))
 				.findAny()
 				.orElseThrow(() -> new Exception());
 			
-			return true;
+				return true;
+			}
+			
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
