@@ -117,7 +117,7 @@ CREATE TABLE public.events (
 	card_picture varchar NOT NULL,
 	banner_picture varchar NOT NULL,
 	active bool NOT NULL DEFAULT false,
-	archived bool NOT NULL DEFAULT true,
+	archived bool NOT NULL DEFAULT false,
 	CONSTRAINT events_pk_id PRIMARY KEY (id_event),
 	CONSTRAINT events_fk_category FOREIGN KEY (id_event_category) REFERENCES public.event_categories(id_event_category) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT events_fk_place FOREIGN KEY (id_place) REFERENCES public.places(id_place) ON DELETE RESTRICT ON UPDATE CASCADE

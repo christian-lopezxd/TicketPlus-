@@ -52,7 +52,7 @@ public class GuestController {
 	
 	@GetMapping("/event/get-all-active")
 	private ResponseEntity<?> getEvents(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
-		PageListDTO<Events> events = eventService.getAllActiveEvents(page, size);
+		PageListDTO<Events> events = eventService.getAllActiveAndNotArchivedEvents(page, size);
 		
 		return new ResponseEntity<>(events, HttpStatus.OK);
 	}

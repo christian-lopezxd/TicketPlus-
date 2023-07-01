@@ -23,6 +23,6 @@ public interface IEventsService {
 	void toggleActiveEvent(Events event) throws Exception;
 	Events findOneByidEvent(UUID idEvent);
 	PageListDTO<Events> generatePageable(Page<Events> events);
-	PageListDTO<Events> getAllActiveEvents(int page, int size);
+	PageListDTO<Events> getAllActiveAndNotArchivedEvents(int page, int size);
 	PageListDTO<Events> getAllEvents(int page, int size);
 }
