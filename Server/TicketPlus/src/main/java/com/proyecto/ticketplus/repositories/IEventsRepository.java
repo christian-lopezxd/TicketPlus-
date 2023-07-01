@@ -10,5 +10,5 @@ import com.proyecto.ticketplus.models.entities.Events;
 
 public interface IEventsRepository extends JpaRepository<Events, UUID> {
 	Events findOneByidEvent(UUID idEvent);
-	Page<Events> findAllByActive(Boolean active, Pageable pageable);
+	Page<Events> findAllByActiveAndArchived(Boolean active, Boolean archived, Pageable pageable);
 }

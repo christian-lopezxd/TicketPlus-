@@ -15,12 +15,17 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
-import com.proyecto.ticketplus.models.dtos.users.NewUserDTO;
+import com.proyecto.ticketplus.models.dtos.users.NewUserGoogleDTO;
+import com.proyecto.ticketplus.models.dtos.users.NewUserPasswordDTO;
+import com.proyecto.ticketplus.models.entities.Roles;
 import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
+import com.proyecto.ticketplus.models.entities.UsersRoles;
 import com.proyecto.ticketplus.repositories.ITokensRepository;
 import com.proyecto.ticketplus.repositories.IUsersRepository;
+import com.proyecto.ticketplus.repositories.IUsersRolesRepository;
 import com.proyecto.ticketplus.services.IEmailService;
+import com.proyecto.ticketplus.services.IRolesService;
 import com.proyecto.ticketplus.services.IUsersService;
 import com.proyecto.ticketplus.utils.JWTTools;
 
@@ -38,7 +43,13 @@ public class UsersServiceImplementation implements IUsersService{
 	private ITokensRepository tokenRepository;
 	
 	@Autowired
+	private IUsersRolesRepository userRolesRepository;
+	
+	@Autowired
 	private IEmailService emailService;
+	
+	@Autowired
+	private IRolesService rolesService;
 	
 	@Autowired
 	public PasswordEncoder passwordEncoder;
@@ -89,12 +100,16 @@ public class UsersServiceImplementation implements IUsersService{
 			cleanTokens(user);
 			List<Tokens> tokens = tokenRepository.findByUserAndActive(user, true);
 			
-			tokens.stream()
+			if (tokens.size() > 0) {
+				tokens.stream()
 				.filter(tk -> tk.getContent().equals(token))
 				.findAny()
 				.orElseThrow(() -> new Exception());
 			
-			return true;
+				return true;
+			}
+			
+			return false;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -122,9 +137,21 @@ public class UsersServiceImplementation implements IUsersService{
 	}
 	
 	//Auth
+	
 	@Override
 	@Transactional(rollbackOn = Exception.class)
-	public void createUserGoogle(NewUserDTO newUserGoogle) throws Exception {
+	public void assignRoleToUser(Users user, Roles rol) throws Exception {
+		UsersRoles newUserRole = new UsersRoles(
+				user,
+				rol
+				);
+		
+		userRolesRepository.save(newUserRole);
+	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void createUserGoogle(NewUserGoogleDTO newUserGoogle) throws Exception {
 		Users user = findOneByEmail(newUserGoogle.getEmail());
 		
 		if (user != null) {
@@ -134,10 +161,35 @@ public class UsersServiceImplementation implements IUsersService{
 					null
 					);
 			
-			usersRepository.save(newUser);
+			UUID idUser = usersRepository.save(newUser).getIdUser();
+			
+			Users userCreated = findOneByUUID(idUser);
+			Roles role = rolesService.findOneByName("Customer");
+			
+			assignRoleToUser(userCreated, role);
 			
 			emailService.sendCreationEmail(newUser.getEmail());
+			emailService.sendVerificationEmail(newUser.getEmail(), idUser);
 		}
+	}
+	
+	@Override
+	public void createUserPassword(NewUserPasswordDTO newUserPassword) throws Exception {
+		Users newUser = new Users(
+				newUserPassword.getName(),
+				newUserPassword.getEmail(),
+				passwordEncoder.encode(newUserPassword.getPassword())
+				);
+		
+		UUID idUser = usersRepository.save(newUser).getIdUser();
+		
+		Users userCreated = findOneByUUID(idUser);	
+		Roles role = rolesService.findOneByName("Customer");
+		
+		assignRoleToUser(userCreated, role);
+		
+		emailService.sendCreationEmail(newUser.getEmail());
+		emailService.sendVerificationEmail(newUser.getEmail(), idUser);
 	}
 	
 	@Override
@@ -157,7 +209,7 @@ public class UsersServiceImplementation implements IUsersService{
             
             GoogleIdToken.Payload payload = idTokenObj.getPayload();
             
-            NewUserDTO newUserGoogle = new NewUserDTO(
+            NewUserGoogleDTO newUserGoogle = new NewUserGoogleDTO(
             		(String) payload.get("given_name") + " " + (String) payload.get("family_name"),
             		payload.getEmail()
             		);

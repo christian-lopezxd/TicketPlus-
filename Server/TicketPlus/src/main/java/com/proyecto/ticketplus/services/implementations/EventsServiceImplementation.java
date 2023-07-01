@@ -245,9 +245,9 @@ public class EventsServiceImplementation implements IEventsService{
 	}
 
 	@Override
-	public PageListDTO<Events> getAllActiveEvents(int page, int size) {
+	public PageListDTO<Events> getAllActiveAndNotArchivedEvents(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("startDate").ascending());
-		Page<Events> events = eventsRepository.findAllByActive(true, pageable);
+		Page<Events> events = eventsRepository.findAllByActiveAndArchived(true, false, pageable);
 
 		PageListDTO<Events> eventsPageable = generatePageable(events);
 		

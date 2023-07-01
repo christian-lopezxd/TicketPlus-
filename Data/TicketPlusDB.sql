@@ -117,7 +117,7 @@ CREATE TABLE public.events (
 	card_picture varchar NOT NULL,
 	banner_picture varchar NOT NULL,
 	active bool NOT NULL DEFAULT false,
-	archived bool NOT NULL DEFAULT true,
+	archived bool NOT NULL DEFAULT false,
 	CONSTRAINT events_pk_id PRIMARY KEY (id_event),
 	CONSTRAINT events_fk_category FOREIGN KEY (id_event_category) REFERENCES public.event_categories(id_event_category) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT events_fk_place FOREIGN KEY (id_place) REFERENCES public.places(id_place) ON DELETE RESTRICT ON UPDATE CASCADE
@@ -214,7 +214,7 @@ CREATE TABLE public.tokens (
 CREATE TABLE public.users_roles (
 	id_user_role uuid NOT NULL DEFAULT gen_random_uuid(),
 	id_user uuid NOT NULL,
-	id_role uuid NOT NULL DEFAULT gen_random_uuid(),
+	id_role uuid NOT NULL,
 	CONSTRAINT users_roles_pk_id PRIMARY KEY (id_user_role),
 	CONSTRAINT users_roles_fk_role FOREIGN KEY (id_role) REFERENCES public.roles(id_role) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT users_roles_fk_user FOREIGN KEY (id_user) REFERENCES public.users(id_user) ON DELETE RESTRICT ON UPDATE CASCADE

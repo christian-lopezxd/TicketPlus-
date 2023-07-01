@@ -3,7 +3,9 @@ package com.proyecto.ticketplus.services;
 import java.util.UUID;
 
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
-import com.proyecto.ticketplus.models.dtos.users.NewUserDTO;
+import com.proyecto.ticketplus.models.dtos.users.NewUserGoogleDTO;
+import com.proyecto.ticketplus.models.dtos.users.NewUserPasswordDTO;
+import com.proyecto.ticketplus.models.entities.Roles;
 import com.proyecto.ticketplus.models.entities.Tokens;
 import com.proyecto.ticketplus.models.entities.Users;
 
@@ -19,7 +21,9 @@ public interface IUsersService {
 	void cleanTokens() throws Exception;
 	
 	//Auth
-	void createUserGoogle(NewUserDTO newUserGoogle) throws Exception;
+	void assignRoleToUser(Users user, Roles rol) throws Exception;
+	void createUserGoogle(NewUserGoogleDTO newUserGoogle) throws Exception;
+	void createUserPassword(NewUserPasswordDTO newUserPassword) throws Exception;
 	String verifyIdTokenGoogle(String idToken);
 	void signUpPassword(Users user, ChangePasswordDTO data) throws Exception;
 	Boolean comparePassword(String toCompare, String current);
