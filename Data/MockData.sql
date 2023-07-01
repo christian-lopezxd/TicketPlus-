@@ -1,3 +1,10 @@
+-- USER
+INSERT INTO public.users (name, email, pass) VALUES ('Ernesto Canales', '00051120@uca.edu.sv', '$2a$05$IsNwUKl1SJ8T2WdCp0BBi.FWoYaz16naQa3WSoGY7qSi56LFd1MJG');
+INSERT INTO public.users (name, email, pass) VALUES ('Christian López', '00179320@uca.edu.sv', '$2a$05$IsNwUKl1SJ8T2WdCp0BBi.FWoYaz16naQa3WSoGY7qSi56LFd1MJG');
+INSERT INTO public.users (name, email, pass) VALUES ('Diego Gasteazoro', '00315919@uca.edu.sv', '$2a$05$IsNwUKl1SJ8T2WdCp0BBi.FWoYaz16naQa3WSoGY7qSi56LFd1MJG');
+INSERT INTO public.users (name, email, pass) VALUES ('Oscar Cornejo', '00223019@uca.edu.sv', '$2a$05$IsNwUKl1SJ8T2WdCp0BBi.FWoYaz16naQa3WSoGY7qSi56LFd1MJG');
+INSERT INTO public.users (name, email, pass) VALUES ('Dogulas Hernández', 'dohernandez@uca.edu.sv', '$2a$05$IsNwUKl1SJ8T2WdCp0BBi.FWoYaz16naQa3WSoGY7qSi56LFd1MJG');
+
 -- ROLE
 INSERT INTO public.roles (rol) VALUES ('Customer');
 INSERT INTO public.roles (rol) VALUES ('Employee');
