@@ -30,7 +30,7 @@ public class UserController {
 	
 	//GET
 	
-	@GetMapping("/get-one")
+	@GetMapping("/get")
 	private ResponseEntity<?> getUserToken() {
 		Users user = userService.findUserAuthenticated();
 		
