@@ -119,7 +119,7 @@ public class EmailServiceImplementation implements IEmailService {
 		EmailDetailsDTO emailDetails = new EmailDetailsDTO(
 				email,
 				"Account changes made",
-				"Your account at TicketPlus+ has been unverified because you updated your account on " + localDate + " at " + localTime + " to sign in with password. If it was not you, please contect an administrator",
+				"Your account at TicketPlus+ has been unverified because you updated your account on " + localDate + " at " + localTime + " to sign in with password. If it was not you, please contact an administrator",
 				null
 				);
 		

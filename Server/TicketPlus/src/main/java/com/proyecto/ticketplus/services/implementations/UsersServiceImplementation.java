@@ -1,5 +1,7 @@
 package com.proyecto.ticketplus.services.implementations;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -13,8 +15,7 @@ import org.springframework.stereotype.Service;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
-import com.google.api.client.json.JsonFactory;
-import com.google.api.client.json.gson.GsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
 import com.proyecto.ticketplus.models.dtos.users.ChangePasswordDTO;
 import com.proyecto.ticketplus.models.dtos.users.NewUserGoogleDTO;
 import com.proyecto.ticketplus.models.dtos.users.NewUserPasswordDTO;
@@ -33,10 +34,7 @@ import com.proyecto.ticketplus.utils.JWTTools;
 import jakarta.transaction.Transactional;
 
 @Service
-public class UsersServiceImplementation implements IUsersService{
-	@Value("${google.ClientId}")
-	private String clientId;
-	
+public class UsersServiceImplementation implements IUsersService {	
 	@Autowired
 	private  IUsersRepository usersRepository;
 	
@@ -57,6 +55,15 @@ public class UsersServiceImplementation implements IUsersService{
 	
 	@Autowired
 	private JWTTools jwtTools;
+	
+	private final GoogleIdTokenVerifier verifier;
+
+    public UsersServiceImplementation(@Value("${Client_ID}") String clientId) {
+        NetHttpTransport transport = new NetHttpTransport();
+        JacksonFactory jsonFactory = new JacksonFactory();
+        
+        verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList(clientId)).build();
+    }
 	
 	//General
 	@Override
@@ -155,11 +162,13 @@ public class UsersServiceImplementation implements IUsersService{
 	public void createUserGoogle(NewUserGoogleDTO newUserGoogle) throws Exception {
 		Users user = findOneByEmail(newUserGoogle.getEmail());
 		
-		if (user != null) {
+		if (user == null) {
 			Users newUser = new Users(
 					newUserGoogle.getName(),
 					newUserGoogle.getEmail(),
-					null
+					null,
+					false,
+					true
 					);
 			
 			UUID idUser = usersRepository.save(newUser).getIdUser();
@@ -179,10 +188,14 @@ public class UsersServiceImplementation implements IUsersService{
 		Users newUser = new Users(
 				newUserPassword.getName(),
 				newUserPassword.getEmail(),
-				passwordEncoder.encode(newUserPassword.getPassword())
+				passwordEncoder.encode(newUserPassword.getPassword()),
+				false,
+				true
 				);
 		
 		UUID idUser = usersRepository.save(newUser).getIdUser();
+		
+		System.out.println(findOneByEmail(newUserPassword.getEmail()));
 		
 		Users userCreated = findOneByUUID(idUser);	
 		Roles role = rolesService.findOneByName("Customer");
@@ -195,20 +208,15 @@ public class UsersServiceImplementation implements IUsersService{
 	
 	@Override
 	public String verifyIdTokenGoogle(String idToken) {
-		NetHttpTransport transport = new NetHttpTransport();
-		JsonFactory jsonFactory = GsonFactory.getDefaultInstance();
-		
-		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory).setAudience(Collections.singletonList(clientId)).build();
-		
-	    try {
-            GoogleIdToken idTokenObj = verifier.verify(idToken);
-            
-            if (idTokenObj == null) {
-            	 System.out.println("Bad token format");
+        GoogleIdToken idTokenObject = null;
+
+        try {
+            idTokenObject = verifier.verify(idToken);
+
+            if (idToken == null)
                 return null;
-            }
-            
-            GoogleIdToken.Payload payload = idTokenObj.getPayload();
+
+            GoogleIdToken.Payload payload = idTokenObject.getPayload();
             
             NewUserGoogleDTO newUserGoogle = new NewUserGoogleDTO(
             		(String) payload.get("given_name") + " " + (String) payload.get("family_name"),
@@ -216,14 +224,18 @@ public class UsersServiceImplementation implements IUsersService{
             		);
             
             createUserGoogle(newUserGoogle);
-            
+
             return newUserGoogle.getEmail();
+        } catch (GeneralSecurityException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         } catch (Exception e) {
-        	e.printStackTrace();
-        }
-	    
+			e.printStackTrace();
+		}
+        
 		return null;
-	}
+    }
 	
 	@Override
 	@Transactional(rollbackOn = Exception.class)

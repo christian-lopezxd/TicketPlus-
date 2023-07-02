@@ -44,10 +44,10 @@ public class Users implements UserDetails {
 	@Column(name = "pass")
 	private String password;
 
-	@Column(name = "verified", insertable = false)
+	@Column(name = "verified")
 	private Boolean verified;
 	
-	@Column(name = "active", insertable = false)
+	@Column(name = "active")
 	private Boolean active;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
@@ -62,11 +62,13 @@ public class Users implements UserDetails {
 	@JsonIgnore
 	private List<Tokens> tokens;
 	
-	public Users(String name, String email, String password) {
+	public Users(String name, String email, String password, Boolean verified, Boolean active) {
 		super();
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.verified = verified;
+		this.active = active;
 	}
 
 	@Override

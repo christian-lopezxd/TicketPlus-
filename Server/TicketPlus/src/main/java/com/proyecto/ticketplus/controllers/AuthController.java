@@ -58,6 +58,10 @@ public class AuthController {
 
 		Users user = userService.findOneByEmail(email);
 		
+		if (user == null) {
+			return new ResponseEntity<>(new MessageDTO("User not found"), HttpStatus.NOT_FOUND);
+		}
+		
 		if (!user.getVerified()) {
 			emailService.sendVerificationEmail(user.getEmail(), user.getIdUser());
 			
@@ -174,7 +178,7 @@ public class AuthController {
 			return new ResponseEntity<>(new MessageDTO("User has already set a password! Make sure to sign in with your creadentials"), HttpStatus.CONFLICT);
 		}
 		
-		if (data.getNewPassword() != data.getNewPasswordConfirm()) {
+		if (!data.getNewPassword().equals(data.getNewPasswordConfirm())) {
 			return new ResponseEntity<>(new MessageDTO("Passwords do not match! Please re-enter your password"), HttpStatus.CONFLICT);
 		}
 		
