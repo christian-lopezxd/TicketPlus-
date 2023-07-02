@@ -1,5 +1,6 @@
 package com.proyecto.ticketplus.controllers;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,24 +13,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.proyecto.ticketplus.models.dtos.places.CreatePlaceDTO;
+import com.proyecto.ticketplus.models.dtos.event_categories.CreateCategoryDTO;
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
-import com.proyecto.ticketplus.models.dtos.response.PageListDTO;
-import com.proyecto.ticketplus.models.entities.Places;
-import com.proyecto.ticketplus.services.IPlacesService;
+import com.proyecto.ticketplus.models.entities.EventCategories;
+import com.proyecto.ticketplus.services.IEventCategoriesService;
 import com.proyecto.ticketplus.utils.RequestErrorHandler;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/place")
+@RequestMapping("/category")
 @CrossOrigin("*")
-public class PlaceController {
+public class EventCategoryController {
 	@Autowired
-	private IPlacesService placeService;
+	private IEventCategoriesService eventCategoriesService;
 	
 	@Autowired
 	private RequestErrorHandler errorHandler;
@@ -37,35 +36,35 @@ public class PlaceController {
 	//GET
 	
 	@GetMapping("/get-all")
-	private ResponseEntity<?> getPlaces(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
-		PageListDTO<Places> places = placeService.findAllPlaces(page, size);
+	private ResponseEntity<?> getCategories() {
+		List<EventCategories> categories = eventCategoriesService.findAllCategories();
 		
-		return new ResponseEntity<>(places, HttpStatus.OK);
+		return new ResponseEntity<>(categories, HttpStatus.OK);
 	}
 	
-	@GetMapping("/get-one/{idPlace}")
-	private ResponseEntity<?> getPlace(@PathVariable("idPlace") UUID idPlace) {
-		Places place = placeService.findPlaceByUUID(idPlace);
+	@GetMapping("/get-one/{idCategory}")
+	private ResponseEntity<?> getCategory(@PathVariable("idCategory") UUID idCategory) {
+		EventCategories category = eventCategoriesService.findEventCategoryByUUID(idCategory);
 		
-		if (place == null) {
-			return new ResponseEntity<>(new MessageDTO("Place not found"), HttpStatus.NOT_FOUND);
+		if (category == null) {
+			return new ResponseEntity<>(new MessageDTO("Category not found"), HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<>(place, HttpStatus.OK);
+		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
 	
 	//POST
 	
 	@PostMapping("/create")
-	private ResponseEntity<?> createPlace(@RequestBody @Valid CreatePlaceDTO data, BindingResult validations) {
+	private ResponseEntity<?> createCategory(@RequestBody @Valid CreateCategoryDTO data, BindingResult validations) {
 		if (validations.hasErrors()) {
 			return new ResponseEntity<>(errorHandler.mapErrors(validations.getFieldErrors()), HttpStatus.BAD_REQUEST);
 		}
 		
 		try {
-			placeService.RegisterPlace(data);
+			eventCategoriesService.RegisterCategory(data);
 			
-			return new ResponseEntity<>(new MessageDTO("Place added successfully"), HttpStatus.OK);
+			return new ResponseEntity<>(new MessageDTO("Category added successfully"), HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
