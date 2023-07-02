@@ -30,6 +30,25 @@ public class UserController {
 	
 	//GET
 	
+	@GetMapping("/get-one")
+	private ResponseEntity<?> getUserToken() {
+		Users user = userService.findUserAuthenticated();
+		
+		if (user == null) {
+			return new ResponseEntity<>(new MessageDTO("User not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		UserDTO showUser = new UserDTO(
+				user.getIdUser(),
+				user.getName(),
+				user.getEmail(),
+				user.getVerified(),
+				user.getActive()
+				);
+		
+		return  new ResponseEntity<>(showUser, HttpStatus.OK);
+	}
+	
 	@GetMapping("/get-one/{idUser}")
 	private ResponseEntity<?> getUser(@PathVariable("idUser") UUID idUser) {
 		Users user = userService.findOneByUUID(idUser);
