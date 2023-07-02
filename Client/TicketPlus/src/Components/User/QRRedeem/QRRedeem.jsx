@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { ImCross } from "react-icons/im";
 
-const data = "succeala diego"
+const data = "Code"
 
 const QRRedeem = (props) => {
   return (
@@ -24,7 +24,7 @@ const QRRedeem = (props) => {
           </div>
         </div>
         <div className="flex flex-wrap justify-end">
-          <NavLink to="/ShareTicket">
+          <NavLink to={`/MyTickets`}>
             <button className=" flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful rounded font-montserrat text-white font-normal py-2 px-4 ">
               <ImCross />
               Cancel

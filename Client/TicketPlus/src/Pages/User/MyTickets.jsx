@@ -16,7 +16,7 @@ const MyTickets = () => {
 
             </div>
            <div className="w-[75vw]  md:w-full md:items-center md:h-auto xl:w-100 pr-10 sm:pr-0 ">
-           <BundleContainer />
+           <BundleContainer  />
            </div>
            </div>
             <Footer />

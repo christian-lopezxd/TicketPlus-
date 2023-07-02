@@ -4,7 +4,7 @@ import Test from "./QRReader/QRReader";
 import QRCode from "react-qr-code";
 import { NavLink } from "react-router-dom";
 
-const ValidatorTicket = () => {
+const ValidatorTicket = (props) => {
   return(
    <div className="h-[92vh] flex items-center justify-center w-full">
      <div className="bg-grissoft w-1/2 mb-2  p-6 rounded-2xl">
@@ -20,7 +20,7 @@ const ValidatorTicket = () => {
        
       </div>
       <div className="flex flex-wrap justify-end">
-      <NavLink to="/ShareTicket">
+      <NavLink to={`/ShareTicket/${props.id}`}>
       <button className=" flex flex-row items-center gap-2 bg-unsuccesful hover:bg-darkunsuccesful rounded font-montserrat text-white font-normal py-2 px-4 ">
          <ImCross/>Cancel
         </button></NavLink>
