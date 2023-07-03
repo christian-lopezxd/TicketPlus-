@@ -29,7 +29,7 @@ public class Places {
 	private UUID idPlace;
 	
 	@Column(name = "place")
-	private String place;
+	private String placeName;
 	
 	@Column(name = "address_location")
 	private String addressLocation;
@@ -40,7 +40,7 @@ public class Places {
 
 	public Places(String place, String addressLocation) {
 		super();
-		this.place = place;
+		this.placeName = place;
 		this.addressLocation = addressLocation;
 	}
 }

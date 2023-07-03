@@ -189,9 +189,6 @@ public class EventController {
 				}
 			}
 			
-			System.out.println(eventCatergory);
-			System.out.println(place);
-			
 			eventService.updateEvent(data, event, eventCatergory, place);
 			
 			if (event.getActive()) {

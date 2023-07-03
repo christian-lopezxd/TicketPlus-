@@ -53,7 +53,7 @@ public class PlacesServiceImplementation implements IPlacesService{
 
 	@Override
 	public PageListDTO<Places> findAllPlaces(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size, Sort.by("place").ascending());
+		Pageable pageable = PageRequest.of(page, size, Sort.by("placeName").ascending());
 		Page<Places> places = placesRepository.findAll(pageable);
 		
 		PageListDTO<Places> placesPageable = generatePageable(places);

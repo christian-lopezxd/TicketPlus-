@@ -29,7 +29,7 @@ public class EventCategories {
 	private UUID idEventCategory;
 	
 	@Column(name = "event_category")
-	private String eventCategory;
+	private String eventCategoryName;
 	
 	@OneToMany(mappedBy = "eventCategory", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -37,6 +37,6 @@ public class EventCategories {
 
 	public EventCategories(String eventCategory) {
 		super();
-		this.eventCategory = eventCategory;
+		this.eventCategoryName = eventCategory;
 	}
 }
