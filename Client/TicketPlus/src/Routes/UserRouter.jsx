@@ -17,7 +17,7 @@ const UserRouter = () => {
         <Routes>
             <Route path="/" element={<Lobby/>}></Route>
             <Route path="/Events" element={<EventInfo/>}></Route>
-            <Route path="/Event/:id" element={<EventInfo />}></Route>
+            <Route path="/Event/:idEvent" element={<EventInfo />}></Route>
             <Route path="/MyTickets" element={<MyTickets/>}></Route>
             <Route path="/BuyTicket/:id" element={<BuyTicket/>}></Route>
             <Route path="/ShareTicket/:id" element={<ShareTicket/>}></Route>

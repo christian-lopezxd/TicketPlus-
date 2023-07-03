@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
-const url = "http://localhost:8080"
+const url = "http://162.243.162.41"
 
 
 
