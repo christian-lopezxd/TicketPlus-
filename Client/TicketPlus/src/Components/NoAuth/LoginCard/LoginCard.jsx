@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import AuthServices from "../../../Services/AuthServices";
 import { useNavigate } from "react-router";
 
+import { GoogleLogin } from '@react-oauth/google';
+
 const LoginCard = () => {
 
   const navigate = useNavigate()
@@ -29,6 +31,8 @@ const LoginCard = () => {
     
       
       AuthServices.login(email, password, navigate)
+
+      
       
     }
 
@@ -94,7 +98,23 @@ const LoginCard = () => {
 
         <h1 className="text-center font-montserrat font-semibold m-2">First time? Sing up with google</h1>
         <div className="flex justify-center text-6xl" >
-          <FcGoogle/>
+        
+        <GoogleLogin
+  onSuccess={credentialResponse => {
+   
+    console.log(credentialResponse.credential);
+    try {
+      AuthServices.loginGoogle(credentialResponse.credential, navigate)
+    } catch (error) {
+      console.log(error)
+      
+    }
+  }}
+  onError={() => {
+    console.log('Login Failed');
+  }}
+/>
+      
         </div>
       </div>
       
