@@ -225,6 +225,18 @@ public class EventsServiceImplementation implements IEventsService{
 		
 		eventsRepository.save(event);
 	}
+	
+	@Override
+	@Transactional(rollbackOn = Exception.class)
+	public void toggleArchiveEvent(Events event) throws Exception {
+		if (!event.getArchived()) {
+			event.setArchived(true);
+		} else {
+			event.setArchived(false);
+		}
+		
+		eventsRepository.save(event);
+	}
 
 	@Override
 	public Events findOneByidEvent(UUID idEvent) {
