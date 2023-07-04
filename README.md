@@ -88,7 +88,7 @@ Verify_Frontend_URL=<YourFrontendVerificationURL>
 
 <p align="justify">Además, dentro de <code>./Documents/</code> se puede encontrar el documento <code>Insomnia.json</code> con todas las distintas rutas y probarlas en el Backend:</p>
 
-![Insomnia file](./Documents/img/insomnia.PNG)
+![Insomnia file](./Documents/img/Insomnia.PNG)
 
 <!-- LICENSE -->
 ## Licencia
