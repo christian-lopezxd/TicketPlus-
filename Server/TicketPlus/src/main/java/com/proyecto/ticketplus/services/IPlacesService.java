@@ -1,5 +1,6 @@
 package com.proyecto.ticketplus.services;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.domain.Page;
@@ -12,5 +13,5 @@ public interface IPlacesService {
 	void RegisterPlace(CreatePlaceDTO place) throws Exception;
 	Places findPlaceByUUID(UUID idPlace);
 	PageListDTO<Places> generatePageable(Page<Places> events);
-	PageListDTO<Places> findAllPlaces(int page, int size);
+	List<Places> findAllPlaces();
 }

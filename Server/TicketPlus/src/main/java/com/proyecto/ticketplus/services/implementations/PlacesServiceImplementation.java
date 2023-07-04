@@ -1,12 +1,10 @@
 package com.proyecto.ticketplus.services.implementations;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.ticketplus.models.dtos.places.CreatePlaceDTO;
@@ -52,12 +50,7 @@ public class PlacesServiceImplementation implements IPlacesService{
 	}
 
 	@Override
-	public PageListDTO<Places> findAllPlaces(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size, Sort.by("placeName").ascending());
-		Page<Places> places = placesRepository.findAll(pageable);
-		
-		PageListDTO<Places> placesPageable = generatePageable(places);
-		
-		return placesPageable;
+	public List<Places> findAllPlaces() {
+		return placesRepository.findAll();
 	}
 }

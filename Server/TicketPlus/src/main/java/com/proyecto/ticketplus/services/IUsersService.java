@@ -28,5 +28,7 @@ public interface IUsersService {
 	void signUpPassword(Users user, ChangePasswordDTO data) throws Exception;
 	Boolean comparePassword(String toCompare, String current);
 	void toggleVerifyUser(Users user) throws Exception;
+	void toggleVerifyActive(Users user) throws Exception;
+	void BanUser(Users user, String reason) throws Exception;
 	Users findUserAuthenticated();
 }

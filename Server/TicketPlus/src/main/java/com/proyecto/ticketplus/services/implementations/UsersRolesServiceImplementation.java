@@ -30,6 +30,11 @@ public class UsersRolesServiceImplementation implements IUsersRolesService{
 		
 		usersRolesRepository.save(newUserRoles);
 	}
+	
+	@Override
+	public void RemoveRoleFromUser(UsersRoles userRole) throws Exception {
+		usersRolesRepository.delete(userRole);
+	}
 
 	@Override
 	public UsersRoles findUsersRolesByUserAndRole(Users user, Roles role) {

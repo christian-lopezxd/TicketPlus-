@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -204,7 +205,41 @@ public class EventController {
 	
 	//PATCH
 	
+	@PatchMapping("/toggle-active/{idEvent}")
+	public ResponseEntity<?> changeEventStatusActive(@PathVariable("idEvent") UUID idEvent) {
+		Events event = eventService.findOneByidEvent(idEvent);
+		
+		if (event == null) {
+			return new ResponseEntity<>(new MessageDTO("Event not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		try {
+			eventService.toggleActiveEvent(event);
+			
+			return new ResponseEntity<>(new MessageDTO("Active status set to '" + event.getActive() + "', Event changed successfully"), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
+	@PatchMapping("/toggle-archive/{idEvent}")
+	public ResponseEntity<?> changeEventStatusArchive(@PathVariable("idEvent") UUID idEvent) {
+		Events event = eventService.findOneByidEvent(idEvent);
+		
+		if (event == null) {
+			return new ResponseEntity<>(new MessageDTO("Event not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		try {
+			eventService.toggleArchiveEvent(event);
+			
+			return new ResponseEntity<>(new MessageDTO("Archive status set to '" + event.getArchived() + "', Event changed successfully"), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	//DELETE
 	

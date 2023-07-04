@@ -21,6 +21,7 @@ public interface IEventsService {
 	void registerEvent(CreateEventDTO event, EventCategories eventCatergory, Places place) throws Exception;
 	void updateEvent(UpdateEventDTO newEvent, Events oldEvent, EventCategories eventCatergory, Places place) throws Exception;
 	void toggleActiveEvent(Events event) throws Exception;
+	void toggleArchiveEvent(Events event) throws Exception;
 	Events findOneByidEvent(UUID idEvent);
 	PageListDTO<Events> generatePageable(Page<Events> events);
 	PageListDTO<Events> getAllActiveAndNotArchivedEvents(int page, int size);
