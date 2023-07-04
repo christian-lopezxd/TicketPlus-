@@ -3,7 +3,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <h3 align="center">Proyecto - Sistema Ticket Plus</h3>
+  <h1 align="center">Ticket Plus</h1>
+  <img src="./Documents/img/logo.png" alt="Logo" width="80">
 </div>
 
 <!-- ABOUT THE PROJECT -->
@@ -13,15 +14,82 @@ El sistema a realizarse será uno que se enfoque en la venta de tickets para eve
 </p>
 
 <!-- SERVER -->
-## Sobre las credenciales para conectarse a la DB
-<p align="justify">
-En la carpeta raíz del proyecto, crear un archivo llamado: <em>env.properties</em>, en el cual guardará lo siguiente:</p>
+## Sobre la requisitos de Software
+
+<p align="justify">A continuacion, se detalla el software necesario para ejecutar el Proyecto:</p>
+
+### Frontend
+
+<ul>
+  <li><code>node</code>:<code>v18.16.1</code></li>
+  <li><code>npm</code>:<code>v9.7.2</code></li>
+</ul>
+
+```bash
+$ npm install
+$ npm run dev
+```
+
+### Backend
+
+<ul>
+  <li><code>Java</code>:<code>openjdk-17-jdk</code></li>
+  <li><code>Gradle</code>:<code>7.4.2</code></li>
+</ul>
+
+
+```bash
+// Run application using Gradle
+$ gradle bootRun
+
+// Deploy Spring boot application
+$ gradle build
+$ java -jar /build/libs/TicketPlus-0.0.1.jar
 
 ```
-DB_DATABASE=NameofyourappSavedIntoYourDB
-DB_USER=yourUsername
-DB_PASSWORD=SuperStrongPassword
+
+## Sobre las credenciales y otras variables de sistema importantes
+
+<p align="justify"> En la carpeta raíz del proyecto, crear un archivo llamado: <code>env.properties</code>, en el cual guardará lo siguiente:</p>
+
+```html
+DB_DATABASE=<NameOfYourDB>
+DB_USER=<YourDBConnectionUsername>
+DB_PASSWORD=<YourDBConnectionPassword>
+
+Client_ID=<YourGoogleClientID>
+Client_secret=<YourGoogleClientSecret>
+
+Login_User_SMTP=<YourEmailSMTP>
+Login_password_SMTP=<YourEmailPassword>
+
+Verify_Frontend_URL=<YourFrontendVerificationURL>
 ```
+
+## Sobre la documentación de la API
+
+<p align="justify"> Una vez el proyecto sea ejecutado, ya sea en Producción o Deploy, visitar la siguiente ruta para obtener la definición de las rutas dentro de la Aplicación:</p>
+
+```html
+<YourServerURL>/swagger-ui/index.html
+```
+
+<p align="justify">Vista general de OpenAPI definition:</p>
+
+![API Docs view 1](./Documents/img/1-API-Docs.PNG)
+
+<p align="justify">Vista de una Ruta por Controlador:</p>
+
+![API Docs view 2](./Documents/img/2-API-Docs.PNG)
+
+<p align="justify">Vista general Schemes (DTOs) que reciben información:</p>
+
+![API Docs view 3](./Documents/img/3-API-Docs.PNG)
+
+<p align="justify">Además, dentro de <code>./Documents/</code> se puede encontrar el documento <code>Insomnia.json</code> con todas las distintas rutas y probarlas en el Backend:</p>
+
+![Insomnia file](./Documents/img/insomnia.PNG)
+
 <!-- LICENSE -->
 ## Licencia
 
