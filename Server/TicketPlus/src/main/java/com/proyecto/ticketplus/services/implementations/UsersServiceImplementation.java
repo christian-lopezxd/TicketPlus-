@@ -264,6 +264,26 @@ public class UsersServiceImplementation implements IUsersService {
 		
 		usersRepository.save(user);
 	}
+	
+	@Override
+	public void toggleVerifyActive(Users user) throws Exception {
+		if (!user.getActive()) {
+			user.setActive(true);
+		} else {
+			user.setActive(false);
+		}
+		
+		usersRepository.save(user);
+	}
+	
+	@Override
+	public void BanUser(Users user, String reason) throws Exception {
+		user.setActive(false);
+		
+		usersRepository.save(user);
+		
+		emailService.sendDeactivationEmail(user.getEmail(), reason);
+	}
 
 	@Override
 	public Users findUserAuthenticated() {
