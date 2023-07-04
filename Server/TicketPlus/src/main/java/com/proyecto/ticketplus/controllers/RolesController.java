@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
-import com.proyecto.ticketplus.models.dtos.users_roles.NewUserRoleDTO;
+import com.proyecto.ticketplus.models.dtos.users_roles.RequestUserRoleDTO;
 import com.proyecto.ticketplus.models.entities.Roles;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.models.entities.UsersRoles;
@@ -77,7 +78,7 @@ public class RolesController {
 	//POST
 	
 	@PostMapping("/assign")
-	private ResponseEntity<?> assignRoleToUser(@RequestBody @Valid NewUserRoleDTO data, BindingResult validations) {
+	private ResponseEntity<?> assignRoleToUser(@RequestBody @Valid RequestUserRoleDTO data, BindingResult validations) {
 		if (validations.hasErrors()) {
 			return new ResponseEntity<>(errorHandler.mapErrors(validations.getFieldErrors()), HttpStatus.BAD_REQUEST);
 		}
@@ -116,7 +117,39 @@ public class RolesController {
 	
 	//PATCH
 	
-	
+	@PatchMapping("/remove")
+	private ResponseEntity<?> removeRoleFromUser(@RequestBody @Valid RequestUserRoleDTO data, BindingResult validations) {
+		if (validations.hasErrors()) {
+			return new ResponseEntity<>(errorHandler.mapErrors(validations.getFieldErrors()), HttpStatus.BAD_REQUEST);
+		}
+		
+		Users user = userService.findOneByUUID(data.getIdUser());
+		
+		if (user == null) {
+			return new ResponseEntity<>(new MessageDTO("User not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		Roles role = rolesService.findOneByidRole(data.getIdRole());
+		
+		if (role == null) {
+			return new ResponseEntity<>(new MessageDTO("Role not found"), HttpStatus.NOT_FOUND);
+		}
+		
+		try {
+			UsersRoles userRole = usersRolesService.findUsersRolesByUserAndRole(user, role);
+			
+			if (userRole == null) {
+				return new ResponseEntity<>(new MessageDTO("Role not assigned to User"), HttpStatus.CONFLICT);
+			}
+			
+			usersRolesService.RemoveRoleFromUser(userRole);
+			
+			return new ResponseEntity<>(new MessageDTO("Role removed from User successfully"), HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(new MessageDTO("Internal server error"), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	//DELETE
 	

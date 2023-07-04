@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewUserRoleDTO {
+public class RequestUserRoleDTO {
 	@NotNull(message = "User identifier required")
 	private UUID idUser;
 	
