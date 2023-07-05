@@ -11,7 +11,7 @@ import com.proyecto.ticketplus.models.entities.Users;
 
 public interface ITicketsService {
 	int countTicketsWithSameTier(Tiers tier);
-	void registerTicket(Users user, NewTicketDTO data);
+	void registerTicket(Users user, NewTicketDTO data) throws Exception;
 	PageObjectDTO<ShowUserTicketsDTO> generatePageable(Page<Tickets> tickets);
 	PageObjectDTO<ShowUserTicketsDTO> getAllTickets(Users user, int page, int size);
 }
