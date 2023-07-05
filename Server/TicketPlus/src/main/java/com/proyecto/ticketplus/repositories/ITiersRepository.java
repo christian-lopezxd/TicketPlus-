@@ -10,5 +10,6 @@ import com.proyecto.ticketplus.models.entities.Events;
 import com.proyecto.ticketplus.models.entities.Tiers;
 
 public interface ITiersRepository extends JpaRepository<Tiers, UUID> {
+	Tiers findOneByidTier(UUID idTier);
 	Page<Tiers> findAllByEvent(Events event, Pageable pageable);
 }

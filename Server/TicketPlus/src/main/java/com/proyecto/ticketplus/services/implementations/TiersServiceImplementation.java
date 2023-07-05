@@ -2,6 +2,7 @@ package com.proyecto.ticketplus.services.implementations;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -90,5 +91,10 @@ public class TiersServiceImplementation implements ITiersService{
 		PageObjectDTO<TiersEventDTO> tiersPageable = generatePageable(tiers);
 		
 		return tiersPageable;
+	}
+
+	@Override
+	public Tiers findfindOneByidTier(UUID idTier) {
+		return tiersRepository.findOneByidTier(idTier);
 	}
 }

@@ -1,5 +1,7 @@
 package com.proyecto.ticketplus.services;
 
+import java.util.UUID;
+
 import org.springframework.data.domain.Page;
 
 import com.proyecto.ticketplus.models.dtos.response.PageObjectDTO;
@@ -12,4 +14,5 @@ public interface ITiersService {
 	void registerTierToEvent(Events event, CreateTierDTO tier) throws Exception;
 	PageObjectDTO<TiersEventDTO> generatePageable(Page<Tiers> tiers);
 	PageObjectDTO<TiersEventDTO> getAllActiveEvents(Events event, int page, int size);
+	Tiers findfindOneByidTier(UUID idTier);
 }
