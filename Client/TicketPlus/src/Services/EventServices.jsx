@@ -44,4 +44,131 @@ EventServices.getOne = async (params) => {
 }
 
 
+EventServices.getCategories = async() => {
+
+  try{
+    const response = await axios.get(`${url}/category/get-all`,   {
+
+
+      
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      }
+      
+      }) 
+      
+      
+    return response.data
+
+}catch(error){
+    
+}
+
+}
+
+
+EventServices.getPlaces = async() => {
+  
+
+  try{
+    const response = await axios.get(`${url}/place/get-all`,   {
+      
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      }
+      
+      }) 
+      
+    return response.data
+
+}catch(error){
+    
+}
+  
+
+}
+
+EventServices.Create = async(formData) => {
+  
+ 
+
+  
+  try{
+    const response = await axios.postForm(`${url}/event/create`, formData,   {
+
+      headers: {
+        "Content-Type": "multipart/form-data",
+        "Authorization":'Bearer ' + localStorage.getItem("token")
+      }
+     
+      }) 
+      
+      alert("evento creado")
+      console.log(response.data)
+    return response.data
+
+}catch(error){
+    
+}
+
+}
+
+
+EventServices.addTier = async (params, tier, price, capacity) => {
+
+  const config = {
+    headers: {
+        
+        "Authorization":'Bearer ' + localStorage.getItem("token")
+    }
+}
+
+
+  try{
+    const response = await axios.post(`${url}/event/add-tier/${params}`, {
+      tier,
+      price,
+      capacity
+
+    }, config 
+
+      ) 
+      
+      alert("tier added successfully")
+      window.location.reload()
+      
+      console.log(response.data)
+    return response.data
+
+}catch(error){
+    
+}
+
+
+
+
+}
+
+EventServices.getTiersByEvent = async (params, page) => {
+
+  try{
+    const response = await axios.get(`${url}/event/get-tiers/${params}?page=${page}`, {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token")
+      }
+
+    }
+
+      ) 
+      
+    
+      
+    return response.data.content.tiers
+
+}catch(error){
+    
+}
+
+}
+
 export default EventServices;
