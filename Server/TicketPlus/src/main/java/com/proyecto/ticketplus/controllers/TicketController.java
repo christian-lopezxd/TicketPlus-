@@ -5,13 +5,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.proyecto.ticketplus.models.dtos.response.MessageDTO;
+import com.proyecto.ticketplus.models.dtos.response.PageObjectDTO;
 import com.proyecto.ticketplus.models.dtos.tickets.NewTicketDTO;
+import com.proyecto.ticketplus.models.dtos.tickets.ShowUserTicketsDTO;
 import com.proyecto.ticketplus.models.entities.Tiers;
 import com.proyecto.ticketplus.models.entities.Users;
 import com.proyecto.ticketplus.services.ITicketsService;
@@ -39,7 +43,14 @@ public class TicketController {
 	
 	//GET
 	
-	
+	@GetMapping("/get-all")
+	private ResponseEntity<?> getEvents(@RequestParam(required = false, name = "page", defaultValue = "0") int page, @RequestParam(required = false, name = "size", defaultValue = "10") int size) {
+		Users user = userService.findUserAuthenticated();
+		
+		PageObjectDTO<ShowUserTicketsDTO> tickets = ticketsService.getAllTickets(user, page, size);
+		
+		return new ResponseEntity<>(tickets, HttpStatus.OK);
+	}
 	
 	//POST
 	
