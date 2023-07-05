@@ -232,8 +232,8 @@ CREATE TABLE public.tickets (
 	id_user uuid NOT NULL,
 	id_tier uuid NOT NULL,
 	purchased_date timestamp NOT NULL,
-	redeemed_date timestamp NOT NULL,
-	redeemed bool NOT NULL,
+	redeemed_date timestamp,
+	redeemed bool NOT NULL DEFAULT false,
 	CONSTRAINT tickets_pk_id PRIMARY KEY (id_ticket),
 	CONSTRAINT tickets_fk_tier FOREIGN KEY (id_tier) REFERENCES public.tiers(id_tier) ON DELETE RESTRICT ON UPDATE CASCADE,
 	CONSTRAINT tickets_fk_user FOREIGN KEY (id_user) REFERENCES public.users(id_user) ON DELETE RESTRICT ON UPDATE CASCADE
