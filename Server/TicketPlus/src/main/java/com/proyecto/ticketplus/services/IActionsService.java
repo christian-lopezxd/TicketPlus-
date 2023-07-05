@@ -1,5 +1,7 @@
 package com.proyecto.ticketplus.services;
 
-public interface IActionsService {
+import com.proyecto.ticketplus.models.entities.Actions;
 
+public interface IActionsService {
+	Actions findActionByName(String actionName);
 }

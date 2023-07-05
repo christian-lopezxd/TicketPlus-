@@ -7,5 +7,5 @@ import org.springframework.data.repository.ListCrudRepository;
 import com.proyecto.ticketplus.models.entities.Orders;
 
 public interface IOrdersRepository extends ListCrudRepository<Orders, UUID> {
-
+	Orders findOneByidOrder(UUID idOrder);
 }

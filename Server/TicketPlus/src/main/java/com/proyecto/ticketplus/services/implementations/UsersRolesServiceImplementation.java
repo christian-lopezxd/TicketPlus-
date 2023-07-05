@@ -32,6 +32,7 @@ public class UsersRolesServiceImplementation implements IUsersRolesService{
 	}
 	
 	@Override
+	@Transactional(rollbackOn = Exception.class)
 	public void RemoveRoleFromUser(UsersRoles userRole) throws Exception {
 		usersRolesRepository.delete(userRole);
 	}

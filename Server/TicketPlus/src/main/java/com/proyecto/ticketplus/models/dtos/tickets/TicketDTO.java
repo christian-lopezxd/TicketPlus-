@@ -15,5 +15,5 @@ public class TicketDTO {
 	private UUID idTier;
 	private UUID idEvent;
 	private Date purchasedDate;
-	private boolean redeemed;
+	private UUID idOrder;
 }
