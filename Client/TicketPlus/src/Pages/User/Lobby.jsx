@@ -8,24 +8,12 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 
+
 const Lobby = () => {
-  const url = "./src/Data/Events.json";
+  
 
 
-  let [eventos, setEventos] = useState([1,2,3,4,5])
-
-
-  useEffect(() =>{
-    let datos = async () => {
-      const response = await fetch(url);
-      const x = await response.json();
-      setEventos(x)
-    };
-
-    datos()
-    
-    
-  }, [])
+  
   
 
   
@@ -35,9 +23,9 @@ const Lobby = () => {
   return (
     <section className="bg-backgroundicons bg-repeat">
       <Navbar />
-      <Carrousel Eventos = {eventos} />
+      <Carrousel  />
       <Title title="Next Events" />
-      <CardContainer Eventos = {eventos} />
+      <CardContainer  />
       <Footer />
     </section>
   );

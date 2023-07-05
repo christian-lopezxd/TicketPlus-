@@ -1,26 +1,98 @@
 import React from "react";
+import { useState } from "react";
+import EventServices from "../../../Services/EventServices";
 import Card from "./Card/Card";
-import { ImPlus } from "react-icons/im";
+import { useEffect } from "react";
+import moment from "moment";
 import { NavLink } from "react-router-dom";
 
+
+
+
 const CardContainerAdmin = () => {
+  const [page, setPage] = useState(0);
+  const [data, setData] = useState(null)
+
+  
+  const handleDecrement = () => {
+    if (page > 0) {
+      setPage((prevCount) => prevCount - 1);
+    
+    }
+    
+    
+  };
+
+
+  const handleIncrement = () => {
+    if (page < data.totalPages - 1) {
+      setPage((prevCount) => prevCount + 1);
+    }
+  };   
+
+
+
+  useEffect(() => {
+    EventServices.getAllActive(page).then((info) => {
+      setData(info);
+      
+    });
+
+   
+    
+  }, [page]);
+  
+
+
+  
+
   return (
-    <div className="py-6 flex flex-wrap justify-center">
+    <div >
+      <div className="flex justify-center p-5">
       <NavLink to="/NewEvent">
         <button className="flex flex-row items-center gap-2 bg-newblue hover:bg-darkblue py-2 px-4 rounded mx-2 font-montserrat text-white font-normal">
-          <ImPlus />
-          Create New Event
+          
+          Create New Event +
         </button>
       </NavLink>
-      <div className="flex flex-wrap gap-10 justify-center p-5">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        
+      </div>
+      
+      <div className="flex flex-wrap min-h-[84vh] gap-10 justify-center p-5 chibby:px-2 sm:p-10 min-h-80vh " >
+      
+     
+     {
+     data ? data.content.map((evento, ) => {
+       const { idEvent, cardPicture, description, eventCategory, endDate, startDate ,title,  place} =
+         evento;
+
+         
+       const { idEventCategory, eventCategoryName }
+        = eventCategory;
+        const {addressLocation, idPlace, placeName} = 
+        place
+       return (
+         <Card
+           key={idEvent}
+           idEvent={idEvent}
+           description={description}
+           imagen={cardPicture}
+           titulo={title}
+           localizacion={placeName}
+           ciudad = {addressLocation}
+           fecha={moment(startDate).format('DD/MM/YYYY')}
+           horaEntrada={moment(startDate).format('HH:mm')}
+           horaSalida={moment(endDate).format('HH:mm')}
+           categoria={eventCategoryName}
+         />
+       );
+     }) : ""
+   }
+
+
+   </div>
+   <div className="flex gap-2 justify-center p-5 ">
+        <button className="bg-[#374259]  hover:bg-[#545B77] font-semibold w-fit p-5 text-white h-[3rem] flex items-center" onClick={handleDecrement}>prev</button>
+        <button className="bg-[#374259]  hover:bg-[#545B77] font-semibold w-fit p-5 text-white h-[3rem] flex items-center" onClick={handleIncrement}>next</button>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 import React from 'react';
-import arianabanner from './../../../assets/arianabanner.png';
 
-const Banner = () => {
+
+const Banner = (props) => {
     return(
-        <div className='w-100'>
-            <img className="h-full w-full" src={arianabanner} />
+        <div className='w-100 h-[40vh]'>
+            <img className="h-full w-full" src={`http://162.243.162.41/guest/event/picture/${props.image}`} />
 
         </div>
     )
